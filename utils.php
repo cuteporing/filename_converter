@@ -16,8 +16,11 @@ class Utils {
 		( isset( $errorCode ) && !empty( $errorCode ) )?
 			$msg['errorMsg'] = constant($errorCode) : $msg['errorMsg'] = '';
 
-		( isset( $errorCode ) && !empty( $errorCode ) )?
-			$msg['data']
+		( isset( $data ) && !empty( $data ) && !is_null( $data ) )?
+			$msg['data'] = $data : $msg['data'] = array();
+
+		self::log( $msg );
+		return $msg;
 	}
 }
 

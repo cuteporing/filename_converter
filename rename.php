@@ -111,7 +111,7 @@ class RenameFile {
 		foreach(glob($dir.'{*.avi,*.mp4}', GLOB_BRACE) as $file) {
 
 			if( ! $this->isSupported( $finfo, $file ) ) {
-				echo 'not supported';
+				Utils::createMsg('ERROR_MSG_0001');
 				return;
 			}
 
