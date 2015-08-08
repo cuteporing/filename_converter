@@ -1,11 +1,14 @@
 <?php
-define( 'DEFINE_PATH', 'http://localhost/filename_converter/define.json' );
+require_once( 'constants.php' );
+require_once( 'utils.php' );
 
 class RenameFile {
 	var $definePath      = null;
 	var $masterData      = null;
 	var $illegalFilename = null;
 	var $sessionList     = null;
+	var $fileList        = array();
+	var $supportedExt    = null;
 
 	public function setDefinePath() {
 		$this->definePath = DEFINE_PATH;
@@ -34,12 +37,27 @@ class RenameFile {
 	}
 
 	/**
+	 * Set supported file extension
+	 */
+	public function setSupportedExt() {
+		$this->supportedExt = $this->masterData['SUPPORTED_FILE_EXT'];
+	}
+
+	/**
+	 * Get file extension
+	 */
+	public function getFileExtention( $path ) {
+		return pathinfo($path, PATHINFO_EXTENSION);
+	}
+
+	/**
 	 * Set data
 	 */
 	public function setData() {
 		$this->setMasterData();
 		$this->setIllegalFilename();
 		$this->setSessionList();
+		$this->setSupportedExt();
 	}
 
 	/**
@@ -67,44 +85,67 @@ class RenameFile {
 	 */
 	public function getNewFilename( $filename ) {
 		$newFilename = "";
+	}
 
+	/**
+	 * Checks if the file type is supported
+	 * -------------------------------------
+	 * @param <object> $finfo
+	 * @param <object> $file
+	 * @return <boolean>
+	 */
+	public function isSupported( $finfo, $file ) {
+		$type = finfo_file($finfo, $file);
+
+		if ( in_array( $type, $this->supportedExt[0]["VIDEO"] ) ||
+				 in_array( $type, $this->supportedExt[1]["MUSIC"] ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function getAllFiles( $dir ) {
-		$files = array_diff( scandir($dir), array('..', '.', 'Thumbs.db') );
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-		var_dump( $files );
+		foreach(glob($dir.'{*.avi,*.mp4}', GLOB_BRACE) as $file) {
+
+			if( ! $this->isSupported( $finfo, $file ) ) {
+				echo 'not supported';
+				return;
+			}
+
+			$tempFile = array();
+			$tempFile['old']['ext']      = $this->getFileExtention( $file );
+			$tempFile['old']['filename'] = basename($file, '.'.$tempFile['old']['ext']);
+			$tempFile['old']['dir']      = $dir;
+
+			array_push( $this->fileList, $tempFile );
+		}
+
+		Utils::log( $this->fileList );
+
+		finfo_close($finfo);
 	}
 
 	/**
 	 * Initialize process
 	 * -------------------------------------
-	 * @param <string> $filename
+	 * @param <string> $dir
 	 */
 	public function init( $dir ) {
 		$this->setDefinePath();
 		$this->setData();
-		foreach(glob($dir.'{*.avi,*.mp4}', GLOB_BRACE) as $file)
-		{
-			echo "filename: $file : filetype: " . filetype($file) . "<br />";
-		}
-// 		$filename = $this->sanitizeFilename( $filename );
-// 		$this->getAllFiles( $dir );
-// 		$newFilename = $this->getNewFilename( $filename );
 
+		$this->getAllFiles( $dir );
 	}
-// 	public function init( $filename ) {
-// 		$this->setDefinePath();
-// 		$this->setData();
-
-// 		$filename = $this->sanitizeFilename( $filename );
-// 		$newFilename = $this->getNewFilename( $filename );
-
-// 	}
 
 }
 
+// $dir = str_replace('\\', '/', "C:\Users\Krishia\Videos\SERIES\The Universe\Season 2");
+$dir = str_replace('\\', '/', "C:\Users\Krishia\Videos\iPhone_VID");
+
 $renameFile = new RenameFile;
-$renameFile->init( 'C:\Users\USER\Videos\Vids\SERIES\LEVERAGE\Season 3\*' );
+$renameFile->init( $dir.'/' );
 // $renameFile->init( 'Leverage.S03E14.The.Ho.Ho.Ho.Job.HDTV.XviD-FQM' );
 ?>

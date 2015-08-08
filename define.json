@@ -21,5 +21,17 @@
         "XVID-MSPAINT",
         "XVID-XII",
         "XVID-FEVER"
+    ],
+    "SUPPORTED_FILE_EXT": [
+        {
+            "VIDEO": [
+                "video/x-msvideo",
+                "video/mp4"
+            ],
+            "MUSIC": [
+                "mp3",
+                "mp4"
+            ]
+        }
     ]
 }
