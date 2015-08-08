@@ -1,0 +1,25 @@
+{
+    "SEASON_ROMAN": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X"
+    ],
+    "ILLEGAL_FILENAME": [
+        "HDTV",
+        "XVID",
+        "XVID-SYS",
+        "XVID-FQM",
+        "XVID-XS",
+        "XVID-LOL",
+        "XVID-MSPAINT",
+        "XVID-XII",
+        "XVID-FEVER"
+    ]
+}
