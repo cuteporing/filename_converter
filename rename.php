@@ -7,10 +7,12 @@ class RenameFile {
 	var $masterData      = null;
 	var $illegalFilename = null;
 	var $supportedExt    = null;
-	var $title           = null;
-	var $season          = null;
 	var $responseName    = null;
 	var $fileList        = array();
+
+	var $title           = null;
+	var $season          = null;
+	var $directory       = null;
 
 	/**
 	 * Defines path for define.json
@@ -66,6 +68,13 @@ class RenameFile {
 	}
 
 	/**
+	 * @param <string> $directory
+	 */
+	public function setDirectory( $directory ) {
+		$this->directory = self::sanitizeDir( $directory );
+	}
+
+	/**
 	 * Get file extension
 	 */
 	public function getFileExtention( $path ) {
@@ -78,7 +87,6 @@ class RenameFile {
 	public function setData() {
 		$this->setMasterData();
 		$this->setIllegalFilename();
-// 		$this->setSessionList();
 		$this->setSupportedExt();
 	}
 
@@ -157,10 +165,10 @@ class RenameFile {
 	 */
 	public function getNewFilename( $filename ) {
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
-			$oldFilename = $this->fileList[$i]['filename']['old'];
+			$oldFilename = $this->fileList[$i]['filename']['original'];
 			$newFilename = $this->sanitizeFilename( $oldFilename );
 
-			$this->fileList[$i]['filename']['new'] = $newFilename;
+			$this->fileList[$i]['filename']['edited'] = $newFilename;
 		}
 
 		Utils::log( $this->fileList );
@@ -186,24 +194,25 @@ class RenameFile {
 
 	/**
 	 * Get all files under the directory
+	 * -------------------------------------
 	 * @param <string> $dir
 	 */
-	public function getAllFiles( $dir ) {
+	public function getAllFiles( ) {
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-		foreach(glob($dir.'{*.avi,*.mp4,*.mkv}', GLOB_BRACE) as $file) {
+		foreach(glob($this->directory.'{*.avi,*.mp4,*.mkv}', GLOB_BRACE) as $file) {
 			$type = finfo_file($finfo, $file);
 
 			if( ! $this->isSupported( $type ) ) {
 				Utils::createMsg('ERROR_MSG_0001');
-				return;
+				break;
 			}
 
 			$tempFile = array();
 			$tempFile['ext']  = $this->getFileExtention( $file );
 			$tempFile['type'] = $type;
-			$tempFile['dir']  = $dir;
-			$tempFile['filename']['old'] = basename(
+			$tempFile['dir']  = $this->directory;
+			$tempFile['filename']['original'] = basename(
 					$file, '.'.$tempFile['ext'] );
 
 			array_push( $this->fileList, $tempFile );
@@ -211,23 +220,37 @@ class RenameFile {
 
 		finfo_close($finfo);
 
-		if( count( $this->fileList ) == 0 ) {
-			Utils::createMsg('ERROR_MSG_0003');
-		}
+		$this->getNewFilename();
 	}
 
 	/**
 	 * Checks if directory is valid
+	 * -------------------------------------
 	 * @param <string> $dir
 	 * @return boolean
 	 */
-	public function isDir( $dir ) {
-		if( ! is_dir( $dir ) ) {
-			Utils::createMsg( 'ERROR_MSG_0002' );
+	public function isDir() {
+		if( ! is_dir( $this->directory ) ) {
 			return false;
 		}
 
 		return true;
+	}
+
+	public function getFiles( $request ) {
+		$this->setDirectory( $request['data']['directory'] );
+
+		if( $this->isDir() ) {
+			$this->setDefinePath();
+			$this->setData();
+			$this->setTitle( $request['data']['title'] );
+			$this->setSeason( $request['data']['season'] );
+			$this->getAllFiles();
+
+			Utils::createMsg( '', $this->fileList );
+		} else {
+			Utils::createMsg( 'ERROR_MSG_0002' );
+		}
 	}
 
 	/**
@@ -235,17 +258,9 @@ class RenameFile {
 	 * -------------------------------------
 	 * @param <string> $dir
 	 */
-	public function init( $dir ) {
-		if( $this->isDir( $dir ) ) {
-			$this->setDefinePath();
-			$this->setData();
-
-			if( $this->responseName == "getFiles" ) {
-				$this->getAllFiles( $dir );
-				$this->getNewFilename();
-
-				Utils::createMsg( '', $this->fileList );
-			}
+	public function init( $request ) {
+		if( $this->responseName == "getFiles" ) {
+			$this->getFiles( $request );
 		}
 	}
 
@@ -256,14 +271,14 @@ class RenameFile {
 	public static function sanitizeDir( $dir ) {
 		return str_replace('\\', '/', $dir).'/';
 	}
-
 }
 
-$dir = RenameFile::sanitizeDir( "C:\Users\USER\Videos\Vids\SERIES\LEVERAGE\Season 4" );
+if( Utils::isValidRequest() ) {
+	$renameFile = new RenameFile;
+	$renameFile->setResponseName( $_POST['responseName'] );
+	$renameFile->init( $_POST );
+} else {
+	Utils::createMsg( 'ERROR_MSG_0004' );
+}
 
-$renameFile = new RenameFile;
-$renameFile->setTitle( "Leverage" );
-$renameFile->setSeason( "III" );
-$renameFile->setResponseName( "getFiles" );
-$renameFile->init( $dir );
 ?>

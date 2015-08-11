@@ -55,15 +55,30 @@ class Utils {
 	 * @return <array> $msg
 	 */
 	public static function createMsg( $errorCode, $data ) {
-		$msg['errorCode'] = self::createErrCode( $errorCode );
-		$msg['errorMsg']  = self::createErrMsg( $errorCode );
+		$msg['responseName'] = $_POST['responseName'];
+		$msg['errorCode']    = self::createErrCode( $errorCode );
+		$msg['errorMsg']     = self::createErrMsg( $errorCode );
+
 
 		( isset( $data ) && !empty( $data ) && !is_null( $data ) )?
 			$msg['data'] = $data : $msg['data'] = array();
 
-// 		self::log( $msg, '', true );
+		self::log( $msg, '' );
 
 		echo json_encode( $msg );
+	}
+
+	public static function isValidRequest() {
+		global $RESPONSE_NAME;
+		$valid = false;
+
+		if( isset( $_POST['responseName'] ) && !is_null( $_POST['responseName'] ) ) {
+
+			( in_array( $_POST['responseName'], $RESPONSE_NAME ) )?
+				$valid = true : $valid = false;
+		}
+
+		return $valid;
 	}
 }
 

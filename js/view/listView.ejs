@@ -1,0 +1,18 @@
+
+<table id="tableCondition" class="ui-responsive ui-shadow" data-role="table" data-mode="columntoggle" style="width:100%;">
+	<thead>
+		<tr>
+			<th data-priority="1">ORIGINAL</th>
+			<th data-priority="2">EDITED</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for (var idx in list) { %>
+		<tr>
+			<td><%=list[idx].filename.original %></td>
+			<td><%=list[idx].filename.edited %></td>
+		</tr>
+		<% } %>
+	</tbody>
+</table>
+
