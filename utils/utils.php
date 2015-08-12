@@ -28,9 +28,13 @@ class Utils {
 	 */
 	public static function createErrCode( $errorCode ) {
 		if( isset( $errorCode ) && !empty( $errorCode )	){
-			( strpbrk($errorCode,'ERROR_MSG_') )?
-				$errorCode = str_replace( 'ERROR_MSG_', '', $errorCode )
-			: $errorCode = 'ERROR_MSG_'.$errorCode;
+			if( !defined( $errorCode ) ){
+				$errorCode = "ERROR";
+			}else{
+				( strpbrk($errorCode,'ERROR_MSG_') )?
+					$errorCode = str_replace( 'ERROR_MSG_', '', $errorCode )
+					: $errorCode = 'ERROR_MSG_'.$errorCode;
+			}
 		} else {
 			$errorCode = "";
 		}
@@ -43,10 +47,26 @@ class Utils {
 	 * @return <string>
 	 */
 	public static function createErrMsg( $errorCode ) {
-		( isset( $errorCode ) && !empty( $errorCode ) )?
-			$errMsg = constant($errorCode) : $errMsg = "";
+		if ( isset( $errorCode ) && !empty( $errorCode ) ){
+			if( !defined( $errorCode ) ){
+				$errMsg = $errorCode;
+			} else {
+				$errMsg = constant($errorCode);
+			}
+		} else {
+			$errMsg = "";
+		}
 
 		return $errMsg;
+	}
+
+	public static function setResultMsg( $newResponseName ) {
+		if ( isset( $newResponseName ) && !is_null( $newResponseName ) &&
+				!empty( $newResponseName ) ) {
+			$_POST['responseName'] = $newResponseName;
+		} else {
+			$_POST['responseName'] = 'result';
+		}
 	}
 
 	/**

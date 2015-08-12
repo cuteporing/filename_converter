@@ -1,8 +1,16 @@
 $( window ).load( function() {
 	initView();
 
-	var masterData = null;
-	var list       = null;
+	var masterData    = null;
+	var list          = null;
+	var popupHeader   = $( '#myPopupDialog h1' );
+	var popupMsg      = $( '#myPopupDialog p' );
+	var popupBox      = $( '#myPopupDialog' );
+	var titleInpt     = $( '#title' );
+	var directoryInpt = $( '#directory' );
+	var seasonCmb     = $( '#season' );
+	var patternRad1    = $( '#filePattern1' );
+	var patternRad2    = $( '#filePattern2' );
 
 	var defineData = (function() {
 		$.ajax({
@@ -22,51 +30,153 @@ $( window ).load( function() {
 	 */
 	function populateSeasonList() {
 		var season  = masterData.SEASON_ROMAN;
-		var combo = $("#season");
 	
 		$.each(season, function() {
-			combo.append( $( "<option />" ).val( this )
+			seasonCmb.append( $( "<option />" ).val( this )
 				.text( 'Season ' + this ) );
 		});
-		combo.val( $("#season option:first").val() );
+		seasonCmb[0].selectedIndex = 0;
+		seasonCmb.selectmenu("refresh");
 	}
 	
-	$( '#btnCheck' ).click(function(e) {
-		getFiles();
-	})
+	function sendPost( options ) {
+		console.log( 'options', options );
+		var posting = $.post( options.getURL(), options );
+		
+		return posting;
+	}
+	
+	function changeButtonState( defaultState ) {
+		if ( defaultState ) {
+			$('#btnCheck').removeClass( "hide" );
+			$('#btnRename').addClass( "hide" );
+		} else {
+			$('#btnRename').removeClass( "hide" );
+			$('#btnCheck').addClass( "hide" );
+		}
+	}
+	
+	/**
+	 * RESET LIST DATA AND CHANGE BUTTON STATE TO DEFAULT
+	 */
+	function reset() {
+		list = null;
+		changeButtonState( true );
+	}
+	
+	/**
+	 * CLEAR / RESET VALUES
+	 */
+	function clear() {
+		directoryInpt.val( "" );
+		titleInpt.val( "" );
+		seasonCmb[0].selectedIndex = 0;
+		seasonCmb.selectmenu("refresh");
+	}
 
 	/**
 	 * GET FILES
 	 */
 	function getFiles() {
-		var data = {};
+		var data    = {};
+		var posting = null;
+		var pattern = "";
+		
+		if( patternRad1.prop("checked") ) {
+			pattern = "pattern1";
+		}else if( patternRad2.prop("checked") ) {
+			pattern = "pattern2";
+		}else{
+			popupHeader.text( "Error" );
+			popupMsg.text( "Select a filename pattern" );
+			popupBox.bind({
+				popupafterclose: function(event, ui) { 
+					patternRad1.focus();
+				}
+			});
+			popupBox.popup( "open" );
+			
+			return;
+		}
 
-		data.directory = $( '#directory' ).val();
-		data.title     = $( '#title' ).val();
-		data.season    = $( '#season' ).val();
+		data.directory = directoryInpt.val();
+		data.title     = titleInpt.val();
+		data.season    = seasonCmb.val();
+		data.pattern   = pattern;
 		
 		var options = new OPTIONS( "getFiles" );
 		options.setURL( "rename.php" );
 		options.setData( data );
 		
-		var posting = $.post( options.getURL(), options );
-		
+		var posting = sendPost( options );
+
 		posting.done(function( data ) {
 			list = new LIST( data );
 			console.log( 'getFiles', list );
 			
 			// If there is an error
 			if( list.getErrorCode() != "" ) {
-				$( '#myPopupDialog h1' ).text( "Error" );
-				$( '#myPopupDialog p' ).text( list.getErrorMsg() );
-				$( '#myPopupDialog' ).popup( "open" );
+				popupHeader.text( "Error" );
+				popupMsg.text( list.getErrorMsg() );
+				if( list.getErrorCode() == '0002' ){
+					popupBox.bind({
+						popupafterclose: function(event, ui) { 
+							directoryInpt.focus();
+						}
+					});
+				}
+				popupBox.popup( "open" );
 				return;
 			}
 			
-			$('#btnCheck').attr("id", "btnConvert").text("Convert");
+			changeButtonState();
 			$('#result').html( showList( list ) );
 		});
 	}
+	
+	function renameFiles() {
+		var data = list.getData();
+		
+		var options = new OPTIONS( "renameFiles" );
+		options.setURL( "rename.php" );
+		options.setData( data );
+		
+		var posting = sendPost( options );
+		
+		posting.done(function( data ) {
+			list = new LIST( data );
+			console.log( 'renameFiles', list );
+			
+			// If there is an error
+			if( list.getErrorCode() != "" ) {
+				popupHeader.text( "Error" );
+				popupMsg.text( list.getErrorMsg() );
+				popupBox.popup( "open" );
+				return;
+			}
+			
+			if ( list.getResponseName() == 'result' ) {
+				var data = list.getData();
+				popupHeader.text( "Success" );
+				popupMsg.text( data.msg );
+				popupBox.popup( "open" );
+				changeButtonState( true );
+				clear();
+				$('#result').html( showList( list ) );
+				return;
+			}
+		});
+	}
+	
+	// --------------------------------------------------------------------
+	// EVENTS
+	// --------------------------------------------------------------------
+	$( "#btnCheck" ).bind( "click", getFiles );
+	$( "#btnRename" ).bind( "click", renameFiles );
+	$( '#title, #season, #directory, input[name="filePattern"]' ).bind(
+		"change", reset );
+	
+
 	// --------------------------------------------------------------------
 	// EJS (VIEW)
 	// --------------------------------------------------------------------
@@ -89,7 +199,9 @@ $( window ).load( function() {
 	}
 	
 	function showList( list ) {
-		return new EJS({url: 'js/view/listView.ejs'}).render({ list: list.getData() });
+		return new EJS({url: 'js/view/listView.ejs'}).render({
+			responseName : list.getResponseName(),
+			list         : list.getData() });
 	}
 });
 

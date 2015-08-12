@@ -1,3 +1,17 @@
 table {
 	width: 100%;
 }
+
+td {
+
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+
+.hide {
+	display: none;
+}
+
+#myPopupDialog {
+  min-width: 350px;
+}

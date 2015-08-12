@@ -1,28 +1,37 @@
-
 <table id="tableCondition" class="ui-responsive ui-shadow" data-role="table" >
-	<thead>
-		<tr>
-			<th data-priority="1"></th>
-			<th data-priority="2"></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label>Has season </label></td>
-			<td><input type="checkbox" id="hasSeason" checked="checked" /></td>
-		</tr>
-			<tr>
-			<td><label>Season </label></td>
-			<td><select id="season"></select></td>
-		</tr>
-		<tr>
-			<td><label>Title </label></td>
-			<td><input id="title" type="text" value="Leverage"/></td>
-		</tr>
-		<tr>
-			<td><label>Directory </label></td>
-			<td><input id="directory" type="text" value="C:\Users\USER\Videos\Vids\SERIES\LEVERAGE\Season 4"/></td>
-		</tr>
-	</tbody>
+  <thead>
+    <tr>
+      <th data-priority="1"></th>
+      <th data-priority="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan = "4">
+        <label>Video <input type="checkbox" id="isVideo" checked="checked" /></label> 
+        <label>Filename pattern</label>
+        <fieldset data-role="controlgroup" data-mini="true">
+          <input type="radio" name="filePattern" id="filePattern1" value="pattern1" />
+          <label for="filePattern1">Episode 1 - Description</label>
+          <input type="radio" name="filePattern" id="filePattern2" value="pattern2" />
+          <label for="filePattern2">MovieTitle.SE01E01.Description</label>
+        </fieldset>
+      </td>
+      <td>
+        <tr>
+          <td><label>Title <input id="title" type="text" value="Leverage"/></td>
+        </tr>
+        <tr>
+          <td><label>Season <select id="season"></select></label></td>
+        </tr>
+        
+        <tr>
+          <td><label>Directory <input id="directory" type="text" value="C:\Users\USER\Videos\Vids\SERIES\LEVERAGE\Season 4"/></label></td>
+        </tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 <button id="btnCheck">Check files</button>
+<button id="btnRename" class="hide">Rename</button>
+

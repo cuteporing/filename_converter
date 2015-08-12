@@ -13,6 +13,9 @@ class RenameFile {
 	var $title           = null;
 	var $season          = null;
 	var $directory       = null;
+	var $pattern         = null;
+
+	var $isDone          = false;
 
 	/**
 	 * Defines path for define.json
@@ -28,7 +31,7 @@ class RenameFile {
 		if( isset( $responsename ) && !empty( $responsename ) &&
 				!is_null( $responsename ) ) {
 					$this->responseName = $responsename;
-				}
+		}
 	}
 
 	/**
@@ -67,6 +70,10 @@ class RenameFile {
 		$this->season = $season;
 	}
 
+	public function setPattern( $pattern ) {
+		$this->pattern = $pattern;
+	}
+
 	/**
 	 * @param <string> $directory
 	 */
@@ -92,7 +99,6 @@ class RenameFile {
 
 	/**
 	 * Remove illegal filename
-	 * -------------------------------------
 	 * @param <string> $filename
 	 * @return <array> $newFilename
 	 */
@@ -100,20 +106,35 @@ class RenameFile {
 		$newFilename = array();
 		$filename = explode( '.', $filename);
 
-		for ( $i = 0; $i < count( $filename ); $i++ ) {
-			if ( !in_array( strtoupper( $filename[$i] ), $this->illegalFilename ) ) {
-				array_push( $newFilename, $filename[$i] );
+
+		if( $this->pattern == "pattern1" ) {
+			$filename = explode( ' - ', $filename );
+
+			$title = ( is_null( $this->title ) || $this->title == "" )?
+				"" : $this->title;
+
+			$tempFilename  = ' ';
+			$tempFilename .= $this->season.' - ';
+			$tempFilename .= $this->getEpisode( $newFilename[1] );
+
+		} elseif( $this->pattern == "pattern2" ) {
+			$filename = explode( '.', $filename);
+
+			for ( $i = 0; $i < count( $filename ); $i++ ) {
+				if ( !in_array( strtoupper( $filename[$i] ), $this->illegalFilename ) ) {
+					array_push( $newFilename, $filename[$i] );
+				}
 			}
+
+			$title = ( is_null( $this->title ) || $this->title == "" )?
+				ucwords( $newFilename[0] ) : $this->title;
+
+			$tempFilename  = ' ';
+			$tempFilename .= $this->season.' - ';
+			$tempFilename .= $this->getEpisode( $newFilename[1] );
+			$tempFilename .= $this->fileDesc( $newFilename );
 		}
 
-		$title = ( is_null( $this->title ) )?
-			ucwords( $newFilename[0] ) : $this->title;
-
-// 		Utils::log( $newFilename );
-		$tempFilename .= ' ';
-		$tempFilename .= $this->season.' - ';
-		$tempFilename .= $this->getEpisode( $newFilename[1] );
-		$tempFilename .= $this->fileDesc( $newFilename );
 
 		$newFilename = $title.$tempFilename;
 
@@ -122,23 +143,33 @@ class RenameFile {
 
 
 	/**
+	 * Get episode from file name
 	 * @param <string> $filename
 	 * @return <string> $episode
 	 */
 	public function getEpisode( $filename ) {
 		$episode = "";
 
-		if( strpos( $filename, "E" ) ) {
-			$temp    = explode( "E" , $filename);
-			$episode = (String) $temp[1];
-		} else {
+		if( $this->pattern == "pattern1" ) {
 			$episode = $filename;
+// 			$episode = trim( ltrim( $filename, 'Episode'), ' ');
+		} else if( $this->pattern == "pattern2" ) {
+			if( strpos( $filename, "E" ) ) {
+				$temp = explode( "E" , $filename);
+				if( (Int)$temp[1] < 10 ) {
+						$temp[1] = '0'.ltrim( $temp[1], '0');
+				}
+				$episode = (String) $temp[1];
+			} else {
+				$episode = $filename;
+			}
 		}
 
 		return $episode;
 	}
 
 	/**
+	 * Get file description from file name
 	 * @param <array> $filename
 	 * @return <string> $description
 	 */
@@ -150,7 +181,7 @@ class RenameFile {
 				$description .= ' '.$filename[$i];
 			}
 
-			$description .= ' ) ';
+			$description .= ' )';
 		}
 
 		$description = ucwords( strtolower( $description ) );
@@ -172,11 +203,12 @@ class RenameFile {
 		}
 
 		Utils::log( $this->fileList );
+
+		$this->isDone = true;
 	}
 
 	/**
 	 * Checks if the file type is supported
-	 * -------------------------------------
 	 * @param <object> $finfo
 	 * @param <object> $file
 	 * @return <boolean>
@@ -184,8 +216,7 @@ class RenameFile {
 	public function isSupported( $type ) {
 
 
-		if ( in_array( $type, $this->supportedExt["VIDEO"] ) ||
-				 in_array( $type, $this->supportedExt["MUSIC"] ) ) {
+		if ( in_array( $type, $this->supportedExt["VIDEO"] ) ) {
 			return true;
 		}
 
@@ -194,7 +225,6 @@ class RenameFile {
 
 	/**
 	 * Get all files under the directory
-	 * -------------------------------------
 	 * @param <string> $dir
 	 */
 	public function getAllFiles( ) {
@@ -220,12 +250,16 @@ class RenameFile {
 
 		finfo_close($finfo);
 
+		if( count( $this->fileList ) == 0 ) {
+			Utils::createMsg( 'ERROR_MSG_0003' );
+			return;
+		}
+
 		$this->getNewFilename();
 	}
 
 	/**
 	 * Checks if directory is valid
-	 * -------------------------------------
 	 * @param <string> $dir
 	 * @return boolean
 	 */
@@ -237,6 +271,9 @@ class RenameFile {
 		return true;
 	}
 
+	/**
+	 * @param <object> $request
+	 */
 	public function getFiles( $request ) {
 		$this->setDirectory( $request['data']['directory'] );
 
@@ -245,22 +282,56 @@ class RenameFile {
 			$this->setData();
 			$this->setTitle( $request['data']['title'] );
 			$this->setSeason( $request['data']['season'] );
+			$this->setPattern( $request['data']['pattern'] );
 			$this->getAllFiles();
 
-			Utils::createMsg( '', $this->fileList );
+			if( $this->isDone ) {
+				Utils::createMsg( '', $this->fileList );
+			}
 		} else {
 			Utils::createMsg( 'ERROR_MSG_0002' );
 		}
 	}
 
 	/**
+	 * Rename files
+	 * @param <object> $request
+	 */
+	public function renameFiles( $request ) {
+		$this->setDirectory( $request['data'][0]['dir'] );
+
+		if( $this->isDir() ) {
+			try {
+				// make directory re-writable
+				mkdir( dirname( $this->directory ), 0777, true );
+
+				foreach ( $request['data'] as $row ) {
+					// source file
+					$srcfile = $row['dir'].$row['filename']['original'].'.'.$row['ext'];
+					// destination file
+					$dstfile = $row['dir'].$row['filename']['edited'].'.'.$row['ext'];
+					// rename
+					rename($srcfile, $dstfile);
+				}
+
+				Utils::setResultMsg();
+				Utils::createMsg( '', array( 'msg'=>'Done' ) );
+			} catch ( Exception $e ) {
+				Utils::createMsg( $e );
+			}
+		}
+
+	}
+
+	/**
 	 * Initialize process
-	 * -------------------------------------
-	 * @param <string> $dir
+	 * @param <object> $request
 	 */
 	public function init( $request ) {
 		if( $this->responseName == "getFiles" ) {
 			$this->getFiles( $request );
+		} elseif ( $this->responseName == "renameFiles" ) {
+			$this->renameFiles( $request );
 		}
 	}
 
@@ -269,7 +340,7 @@ class RenameFile {
 	 * @return mixed
 	 */
 	public static function sanitizeDir( $dir ) {
-		return str_replace('\\', '/', $dir).'/';
+		return rtrim( str_replace('\\', '/', $dir), '/' ).'/';
 	}
 }
 

@@ -1,18 +1,19 @@
-
-<table id="tableCondition" class="ui-responsive ui-shadow" data-role="table" data-mode="columntoggle" style="width:100%;">
+<% if( responseName != "result" ) { %>
+<table id="tableList" class="ui-responsive ui-shadow" data-role="table">
 	<thead>
 		<tr>
-			<th data-priority="1">ORIGINAL</th>
-			<th data-priority="2">EDITED</th>
+			<th>ORIGINAL</th>
+			<th>NEW</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% for (var idx in list) { %>
 		<tr>
-			<td><%=list[idx].filename.original %></td>
-			<td><%=list[idx].filename.edited %></td>
+			<td><%=list[idx].filename.original%>.<%=list[idx].ext %></td>
+			<td><%=list[idx].filename.edited%>.<%=list[idx].ext %></td>
 		</tr>
 		<% } %>
 	</tbody>
 </table>
+<% } %>
 
