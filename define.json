@@ -27,18 +27,24 @@
         "X264-ASAP",
         "X264-EVOLVE",
         "X264-MRS",
-        "X264-2HD"
+        "X264-2HD",
+        "X264-FQM"
     ],
-    "SUPPORTED_FILE_EXT": [
+    "SUPPORTED_FILE_TYPE": [
         {
             "VIDEO": [
                 "video/x-msvideo",
                 "video/mp4",
                 "application/octet-stream"
-            ],
-            "MUSIC": [
-                "mp3",
-                "mp4"
+            ]
+        }
+    ],
+    "SUPPORTED_FILE_EXT": [
+        {
+            "VIDEO": [
+                "*.avi",
+                "*.mp4",
+                "*.mkv"
             ]
         }
     ]

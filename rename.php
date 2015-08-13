@@ -7,6 +7,7 @@ class RenameFile {
 	var $masterData      = null;
 	var $illegalFilename = null;
 	var $supportedExt    = null;
+	var $supportedType   = null;
 	var $responseName    = null;
 	var $fileList        = array();
 
@@ -57,6 +58,14 @@ class RenameFile {
 	}
 
 	/**
+	 * Set supported file type
+	 */
+	public function setSupportedType() {
+		$this->supportedType = $this->masterData['SUPPORTED_FILE_TYPE'][0];
+	}
+
+
+	/**
 	 * @param <string> $title
 	 */
 	public function setTitle( $title ) {
@@ -95,6 +104,7 @@ class RenameFile {
 		$this->setMasterData();
 		$this->setIllegalFilename();
 		$this->setSupportedExt();
+		$this->setSupportedType();
 	}
 
 	/**
@@ -104,8 +114,6 @@ class RenameFile {
 	 */
 	public function sanitizeFilename( $filename ) {
 		$newFilename = array();
-		$filename = explode( '.', $filename);
-
 
 		if( $this->pattern == "pattern1" ) {
 			$filename = explode( ' - ', $filename );
@@ -115,7 +123,7 @@ class RenameFile {
 
 			$tempFilename  = ' ';
 			$tempFilename .= $this->season.' - ';
-			$tempFilename .= $this->getEpisode( $newFilename[1] );
+			$tempFilename .= $this->getEpisode( $filename[0] );
 
 		} elseif( $this->pattern == "pattern2" ) {
 			$filename = explode( '.', $filename);
@@ -151,8 +159,10 @@ class RenameFile {
 		$episode = "";
 
 		if( $this->pattern == "pattern1" ) {
-			$episode = $filename;
-// 			$episode = trim( ltrim( $filename, 'Episode'), ' ');
+			$episode = trim( ltrim( $filename, 'Episode'), ' ');
+			if( $episode  < 10 ) {
+				$episode  = '0'.ltrim( $episode , '0');
+			}
 		} else if( $this->pattern == "pattern2" ) {
 			if( strpos( $filename, "E" ) ) {
 				$temp = explode( "E" , $filename);
@@ -189,39 +199,53 @@ class RenameFile {
 		return $description;
 	}
 
+	public function sortList( $minList ) {
+
+		function sortById($x, $y) {
+			return $x['edited'] - $y['edited'];
+		}
+
+		usort($minList, 'sortById');
+		Utils::createMsg( '', $minList );
+// 		$this->isDone = true;
+	}
 
 	/**
+	 * Generate new filename
 	 * @param <string> $filename
 	 * @return <string> $newFilename
 	 */
 	public function getNewFilename( $filename ) {
+		$minList = array();
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
+
 			$oldFilename = $this->fileList[$i]['filename']['original'];
 			$newFilename = $this->sanitizeFilename( $oldFilename );
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
+
+			$tempList = array();
+			$tempList['idx'] = $i;
+			$tempList['edited'] = $newFilename;
+			array_push( $minList, $tempList);
 		}
 
-		Utils::log( $this->fileList );
-
-		$this->isDone = true;
+		$this->sortList( $minList );
 	}
 
-	/**
-	 * Checks if the file type is supported
-	 * @param <object> $finfo
-	 * @param <object> $file
-	 * @return <boolean>
-	 */
-	public function isSupported( $type ) {
+// 	/**
+// 	 * Checks if the file type is supported
+// 	 * @param <object> $finfo
+// 	 * @param <object> $file
+// 	 * @return <boolean>
+// 	 */
+// 	public function isSupported( $type ) {
+// 		if ( in_array( $type, $this->supportedType["VIDEO"] ) ) {
+// 			return true;
+// 		}
 
-
-		if ( in_array( $type, $this->supportedExt["VIDEO"] ) ) {
-			return true;
-		}
-
-		return false;
-	}
+// 		return false;
+// 	}
 
 	/**
 	 * Get all files under the directory
@@ -229,14 +253,15 @@ class RenameFile {
 	 */
 	public function getAllFiles( ) {
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
 
-		foreach(glob($this->directory.'{*.avi,*.mp4,*.mkv}', GLOB_BRACE) as $file) {
-			$type = finfo_file($finfo, $file);
+		foreach(glob($this->directory.$extList, GLOB_BRACE) as $file) {
+// 			$type = finfo_file($finfo, $file);
 
-			if( ! $this->isSupported( $type ) ) {
-				Utils::createMsg('ERROR_MSG_0001');
-				break;
-			}
+// 			if( ! $this->isSupported( $type ) ) {
+// 				Utils::createMsg('ERROR_MSG_0001');
+// 				break;
+// 			}
 
 			$tempFile = array();
 			$tempFile['ext']  = $this->getFileExtention( $file );
