@@ -66,6 +66,7 @@ class RenameFile {
 
 
 	/**
+	 * Set title
 	 * @param <string> $title
 	 */
 	public function setTitle( $title ) {
@@ -73,12 +74,16 @@ class RenameFile {
 	}
 
 	/**
+	 * Set season
 	 * @param <string> $season
 	 */
 	public function setSeason( $season ) {
 		$this->season = $season;
 	}
 
+	/**
+	 * @param <string> $pattern
+	 */
 	public function setPattern( $pattern ) {
 		$this->pattern = $pattern;
 	}
@@ -124,6 +129,7 @@ class RenameFile {
 			$tempFilename  = ' ';
 			$tempFilename .= $this->season.' - ';
 			$tempFilename .= $this->getEpisode( $filename[0] );
+			$tempFilename .= $this->fileDesc( $filename );
 
 		} elseif( $this->pattern == "pattern2" ) {
 			$filename = explode( '.', $filename);
@@ -133,7 +139,7 @@ class RenameFile {
 					array_push( $newFilename, $filename[$i] );
 				}
 			}
-
+			// Title
 			$title = ( is_null( $this->title ) || $this->title == "" )?
 				ucwords( $newFilename[0] ) : $this->title;
 
@@ -143,12 +149,10 @@ class RenameFile {
 			$tempFilename .= $this->fileDesc( $newFilename );
 		}
 
-
 		$newFilename = $title.$tempFilename;
 
 		return $newFilename;
 	}
-
 
 	/**
 	 * Get episode from file name
@@ -185,13 +189,17 @@ class RenameFile {
 	 */
 	public function fileDesc( $filename ) {
 		$description = "";
-		if( count( $filename ) > 2 ) {
-			$description .= ' (';
-			for( $i = 2; $i < count( $filename ); $i++ ){
-				$description .= ' '.$filename[$i];
-			}
+		if( $this->pattern == "pattern1" ) {
 
-			$description .= ' )';
+		} else if( $this->pattern == "pattern2" ) {
+			if( count( $filename ) > 2 ) {
+				$description .= ' (';
+				for( $i = 2; $i < count( $filename ); $i++ ){
+					$description .= ' '.$filename[$i];
+				}
+
+				$description .= ' )';
+			}
 		}
 
 		$description = ucwords( strtolower( $description ) );
@@ -199,16 +207,6 @@ class RenameFile {
 		return $description;
 	}
 
-	public function sortList( $minList ) {
-
-		function sortById($x, $y) {
-			return $x['edited'] - $y['edited'];
-		}
-
-		usort($minList, 'sortById');
-		Utils::createMsg( '', $minList );
-// 		$this->isDone = true;
-	}
 
 	/**
 	 * Generate new filename
@@ -216,21 +214,15 @@ class RenameFile {
 	 * @return <string> $newFilename
 	 */
 	public function getNewFilename( $filename ) {
-		$minList = array();
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
 			$oldFilename = $this->fileList[$i]['filename']['original'];
 			$newFilename = $this->sanitizeFilename( $oldFilename );
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
-
-			$tempList = array();
-			$tempList['idx'] = $i;
-			$tempList['edited'] = $newFilename;
-			array_push( $minList, $tempList);
 		}
 
-		$this->sortList( $minList );
+		$this->isDone = true;
 	}
 
 // 	/**
