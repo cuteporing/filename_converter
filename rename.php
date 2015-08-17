@@ -15,6 +15,8 @@ class RenameFile {
 	var $season          = null;
 	var $directory       = null;
 	var $pattern         = null;
+	var $description     = "";
+	var $episode         = "";
 
 	var $isDone          = false;
 
@@ -58,14 +60,6 @@ class RenameFile {
 	}
 
 	/**
-	 * Set supported file type
-	 */
-	public function setSupportedType() {
-		$this->supportedType = $this->masterData['SUPPORTED_FILE_TYPE'][0];
-	}
-
-
-	/**
 	 * Set title
 	 * @param <string> $title
 	 */
@@ -82,6 +76,7 @@ class RenameFile {
 	}
 
 	/**
+	 * Set pattern
 	 * @param <string> $pattern
 	 */
 	public function setPattern( $pattern ) {
@@ -89,6 +84,7 @@ class RenameFile {
 	}
 
 	/**
+	 * Set directory
 	 * @param <string> $directory
 	 */
 	public function setDirectory( $directory ) {
@@ -97,6 +93,7 @@ class RenameFile {
 
 	/**
 	 * Get file extension
+	 * @param <string> $path
 	 */
 	public function getFileExtention( $path ) {
 		return pathinfo($path, PATHINFO_EXTENSION);
@@ -109,7 +106,6 @@ class RenameFile {
 		$this->setMasterData();
 		$this->setIllegalFilename();
 		$this->setSupportedExt();
-		$this->setSupportedType();
 	}
 
 	/**
@@ -126,10 +122,8 @@ class RenameFile {
 			$title = ( is_null( $this->title ) || $this->title == "" )?
 				"" : $this->title;
 
-			$tempFilename  = ' ';
-			$tempFilename .= $this->season.' - ';
-			$tempFilename .= $this->getEpisode( $filename[0] );
-			$tempFilename .= $this->fileDesc( $filename );
+			$this->getEpisode( $filename[0] );
+			$this->getFileDesc( $filename[1] );
 
 		} elseif( $this->pattern == "pattern2" ) {
 			$filename = explode( '.', $filename);
@@ -143,11 +137,14 @@ class RenameFile {
 			$title = ( is_null( $this->title ) || $this->title == "" )?
 				ucwords( $newFilename[0] ) : $this->title;
 
-			$tempFilename  = ' ';
-			$tempFilename .= $this->season.' - ';
-			$tempFilename .= $this->getEpisode( $newFilename[1] );
-			$tempFilename .= $this->fileDesc( $newFilename );
+			$this->getEpisode( $newFilename[1] );
+			$this->getFileDesc( $newFilename );
 		}
+
+		$tempFilename  = ' ';
+		$tempFilename .= $this->season.' - ';
+		$tempFilename .= $this->episode;
+		$tempFilename .= $this->description;
 
 		$newFilename = $title.$tempFilename;
 
@@ -160,26 +157,22 @@ class RenameFile {
 	 * @return <string> $episode
 	 */
 	public function getEpisode( $filename ) {
-		$episode = "";
+		$this->episode = "";
 
 		if( $this->pattern == "pattern1" ) {
-			$episode = trim( ltrim( $filename, 'Episode'), ' ');
-			if( $episode  < 10 ) {
-				$episode  = '0'.ltrim( $episode , '0');
-			}
+			$this->episode = trim( ltrim( $filename, 'Episode'), ' ');
 		} else if( $this->pattern == "pattern2" ) {
-			if( strpos( $filename, "E" ) ) {
-				$temp = explode( "E" , $filename);
-				if( (Int)$temp[1] < 10 ) {
-						$temp[1] = '0'.ltrim( $temp[1], '0');
-				}
-				$episode = (String) $temp[1];
+			if( strpos( $filename, "e" ) ) {
+				$temp = explode( "e" , $filename);
+				$this->episode = (String) $temp[1];
 			} else {
-				$episode = $filename;
+				$this->episode = $filename;
 			}
 		}
 
-		return $episode;
+		if( (Int) $this->episode < 10 ) {
+			$this->episode = '0'.ltrim( (string) $this->episode, '0' );
+		}
 	}
 
 	/**
@@ -187,24 +180,24 @@ class RenameFile {
 	 * @param <array> $filename
 	 * @return <string> $description
 	 */
-	public function fileDesc( $filename ) {
-		$description = "";
+	public function getFileDesc( $filename ) {
+		$this->description = "";
 		if( $this->pattern == "pattern1" ) {
-
+			$this->description = $filename;
 		} else if( $this->pattern == "pattern2" ) {
 			if( count( $filename ) > 2 ) {
-				$description .= ' (';
 				for( $i = 2; $i < count( $filename ); $i++ ){
-					$description .= ' '.$filename[$i];
+					$this->description .= ' '.$filename[$i];
 				}
-
-				$description .= ' )';
 			}
 		}
 
-		$description = ucwords( strtolower( $description ) );
+		if( $this->description != "" ) {
+			$this->description = rtrim( ' ( '.ltrim(
+					$this->description, '('), ')' ).' )';
+		}
 
-		return $description;
+		$this->description = ucwords( $this->description );
 	}
 
 
@@ -217,7 +210,7 @@ class RenameFile {
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
 			$oldFilename = $this->fileList[$i]['filename']['original'];
-			$newFilename = $this->sanitizeFilename( $oldFilename );
+			$newFilename = $this->sanitizeFilename( strtolower( $oldFilename ) );
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
 		}
@@ -225,36 +218,15 @@ class RenameFile {
 		$this->isDone = true;
 	}
 
-// 	/**
-// 	 * Checks if the file type is supported
-// 	 * @param <object> $finfo
-// 	 * @param <object> $file
-// 	 * @return <boolean>
-// 	 */
-// 	public function isSupported( $type ) {
-// 		if ( in_array( $type, $this->supportedType["VIDEO"] ) ) {
-// 			return true;
-// 		}
-
-// 		return false;
-// 	}
-
 	/**
 	 * Get all files under the directory
 	 * @param <string> $dir
 	 */
 	public function getAllFiles( ) {
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
 
-		foreach(glob($this->directory.$extList, GLOB_BRACE) as $file) {
-// 			$type = finfo_file($finfo, $file);
-
-// 			if( ! $this->isSupported( $type ) ) {
-// 				Utils::createMsg('ERROR_MSG_0001');
-// 				break;
-// 			}
-
+		foreach( glob( $this->directory.$extList, GLOB_BRACE ) as $file ) {
 			$tempFile = array();
 			$tempFile['ext']  = $this->getFileExtention( $file );
 			$tempFile['type'] = $type;

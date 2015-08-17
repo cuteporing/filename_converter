@@ -28,16 +28,8 @@
         "X264-EVOLVE",
         "X264-MRS",
         "X264-2HD",
-        "X264-FQM"
-    ],
-    "SUPPORTED_FILE_TYPE": [
-        {
-            "VIDEO": [
-                "video/x-msvideo",
-                "video/mp4",
-                "application/octet-stream"
-            ]
-        }
+        "X264-FQM",
+        "480P"
     ],
     "SUPPORTED_FILE_EXT": [
         {
@@ -45,7 +37,8 @@
                 "*.avi",
                 "*.mp4",
                 "*.mkv",
-                "*.srt"
+                "*.srt",
+                "*.flv"
             ]
         }
     ]
