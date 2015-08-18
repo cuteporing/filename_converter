@@ -158,7 +158,7 @@ class RenameFile {
 
 		$newFilename = $title.$tempFilename;
 
-		return $newFilename;
+		return preg_replace('!\s+!', ' ', $newFilename );
 	}
 
 	/**
@@ -224,7 +224,8 @@ class RenameFile {
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
 			$oldFilename = $this->fileList[$i]['filename']['original'];
-			$newFilename = $this->sanitizeFilename( strtolower( $oldFilename ) );
+			$newFilename = $this->sanitizeFilename(
+				preg_replace('!\s+!', ' ', strtolower( $oldFilename ) ) );
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
 		}
@@ -239,18 +240,15 @@ class RenameFile {
 	public function getAllFiles( ) {
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
-		$id = 0;
 
 		foreach( glob( $this->directory.$extList, GLOB_BRACE ) as $file ) {
 			$tempFile = array();
-			$tempFile['id']   = 'file'.$id;
 			$tempFile['ext']  = $this->getFileExtention( $file );
 			$tempFile['dir']  = $this->directory;
 			$tempFile['filename']['original'] = basename(
 					$file, '.'.$tempFile['ext'] );
 
 			array_push( $this->fileList, $tempFile );
-			$id++;
 		}
 
 		finfo_close($finfo);

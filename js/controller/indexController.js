@@ -3,8 +3,8 @@ $( window ).load( function() {
 
 	var masterData    = null;
 	var list          = null;
-	var popupHeader   = $( '#myPopupDialog h1' );
-	var popupMsg      = $( '#myPopupDialog p' );
+	var popupBoxHeader= $( '#myPopupDialog h1' );
+	var popupBoxMsg   = $( '#myPopupDialog p' );
 	var popupBox      = $( '#myPopupDialog' );
 	var titleInpt     = $( '#title' );
 	var directoryInpt = $( '#directory' );
@@ -71,6 +71,16 @@ $( window ).load( function() {
 		seasonCmb[0].selectedIndex = 0;
 		seasonCmb.selectmenu("refresh");
 	}
+	
+	/**
+	 * SET POPUP BOX CONTENT
+	 */
+	function setPopupBox( msg, isError ) {
+		( isError )?
+		  popupBoxHeader.text( "Error" )
+		: popupBoxHeader.text( "Success" );
+		popupBoxMsg.text( msg );
+	}
 
 	/**
 	 * GET FILES
@@ -83,8 +93,7 @@ $( window ).load( function() {
 		if( $( 'input[name="filePattern"]:checked' ).length > 0 ) {
 			pattern = $( 'input[name="filePattern"]:checked' ).attr( 'id' );
 		}else{
-			popupHeader.text( "Error" );
-			popupMsg.text( "Select a filename pattern" );
+			setPopupBox( "Select a filename pattern", true );
 			popupBox.bind({
 				popupafterclose: function(event, ui) { 
 					$( 'input[name="filePattern"]:first' ).focus();
@@ -108,12 +117,10 @@ $( window ).load( function() {
 
 		posting.done(function( data ) {
 			list = new LIST( data );
-			console.log( 'getFiles', list );
 			
 			// If there is an error
 			if( list.getErrorCode() != "" ) {
-				popupHeader.text( "Error" );
-				popupMsg.text( list.getErrorMsg() );
+				setPopupBox( list.getErrorMsg(), true );
 				if( list.getErrorCode() == '0002' ){
 					popupBox.bind({
 						popupafterclose: function(event, ui) { 
@@ -127,6 +134,19 @@ $( window ).load( function() {
 			
 			changeButtonState();
 			$('#result').html( showList( list ) );
+			$( 'input[name="chkAllFile"]' ).change(function() {
+				if( $(this).is(':checked') ) {
+					$( 'input[name="chkFile"]' ).each(function(i,k){
+						$(k).prop('checked',true).parents( 'tr' )
+						.addClass( 'selected' );
+					});
+				} else {
+					$( 'input[name="chkFile"]' ).each(function(i,k){
+						$(k).prop('checked',false).parents( 'tr' )
+						.removeClass( 'selected' );
+					});
+				}
+			});
 			$( 'input[name="chkFile"]' ).change(function() {
 				( $(this).prop("checked") )?
 				  $(this).parents( 'tr' ).addClass( 'selected' )
@@ -136,7 +156,7 @@ $( window ).load( function() {
 	}
 	
 	function renameFiles() {
-		var data = list.getData();
+		var data = getSelectedData();
 		
 		var options = new OPTIONS( "renameFiles" );
 		options.setURL( "rename.php" );
@@ -146,20 +166,17 @@ $( window ).load( function() {
 		
 		posting.done(function( data ) {
 			list = new LIST( data );
-			console.log( 'renameFiles', list );
 			
 			// If there is an error
 			if( list.getErrorCode() != "" ) {
-				popupHeader.text( "Error" );
-				popupMsg.text( list.getErrorMsg() );
+				setPopupBox( list.getErrorMsg(), true );
 				popupBox.popup( "open" );
 				return;
 			}
 			
 			if ( list.getResponseName() == 'result' ) {
 				var data = list.getData();
-				popupHeader.text( "Success" );
-				popupMsg.text( data.msg );
+				setPopupBox( data.msg, false );
 				popupBox.popup( "open" );
 				changeButtonState( true );
 				clear();
@@ -167,6 +184,18 @@ $( window ).load( function() {
 				return;
 			}
 		});
+	}
+	
+	function getSelectedData() {
+		var tempData = [];
+		var data     = list.getData();
+		$( 'input[name="chkFile"]' ).each(function(i,k){
+			if(  $(k).is(':checked') ){
+				tempData.push( data[$(k).attr( 'data-value' )] );
+			}
+		});
+		
+		return tempData;
 	}
 	
 	// --------------------------------------------------------------------

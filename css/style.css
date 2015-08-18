@@ -10,25 +10,45 @@ table {
   min-width: 350px;
 }
 
-#tableList tbody tr td{
-	border-bottom: 1px solid #ddd;
-	color: #BDBDBD;
+#tableList {
+  border-spacing:0; /* Removes the cell spacing via CSS */
+  border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
 }
 
-#tableList tbody tr.selected td {
-	color: #333;
-}
-  #tableList label .original,
-  #tableList label .edited,
-  #tableList label .chkbox {
-    display: inline-block;
-  }
+	#tableList tr th {
+	  line-height: 3em;
+	  border-bottom: 1px ridge #338EC3;
+	}
+	
+	#tableList tbody tr td{
+		border-bottom: 1px solid #ddd;
+		color: #BDBDBD;
+		padding-left: 6px;
+	}
+	
+	#tableList tbody tr.selected td {
+		color: #333;
+	}
+	  #tableList label .original,
+	  #tableList label .edited,
+	  #tableList label .chkbox {
+	    display: inline-block;
+	  }
+	  
+	  #tableList label .original,
+	  #tableList label .edited,
+	  #tableList th {
+	    width: 48%;
+	  }
+	  
+	  #tableList label .chkbox,
+	  #tableList th:first-child {
+	    width: 30px;
+	  }
+	  
+	  #tableList th:first-child {
+	    padding-left: 6px;
+	    text-align: left;
+	  }
+	  
   
-  #tableList label .chkbox {
-    width: 30px;
-  }
-  
-  #tableList label .original,
-  #tableList label .edited {
-    width: 34em;
-  }

@@ -1,6 +1,3 @@
-
-
-
 var LIST = function ( result ) {
 	this.responseName = null;
 	this.errorCode    = "";
@@ -8,6 +5,7 @@ var LIST = function ( result ) {
 	this.data         = [];
 	
 	result = JSON.parse( result );
+	console.log( 'result', result );
 	this.setResponseName( result );
 	this.setErrorCode( result );
 	this.setErrorMsg( result );
