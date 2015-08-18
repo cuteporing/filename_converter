@@ -2,12 +2,6 @@ table {
 	width: 100%;
 }
 
-td {
-
-  border-left: 1px solid lightgray;
-  border-right: 1px solid lightgray;
-}
-
 .hide {
 	display: none;
 }
@@ -15,3 +9,26 @@ td {
 #myPopupDialog {
   min-width: 350px;
 }
+
+#tableList tbody tr td{
+	border-bottom: 1px solid #ddd;
+	color: #BDBDBD;
+}
+
+#tableList tbody tr.selected td {
+	color: #333;
+}
+  #tableList label .original,
+  #tableList label .edited,
+  #tableList label .chkbox {
+    display: inline-block;
+  }
+  
+  #tableList label .chkbox {
+    width: 30px;
+  }
+  
+  #tableList label .original,
+  #tableList label .edited {
+    width: 34em;
+  }

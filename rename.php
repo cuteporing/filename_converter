@@ -117,6 +117,7 @@ class RenameFile {
 		$newFilename = array();
 
 		if( $this->pattern == "pattern1" ) {
+
 			$filename = explode( ' - ', $filename );
 
 			$title = ( is_null( $this->title ) || $this->title == "" )?
@@ -126,6 +127,7 @@ class RenameFile {
 			$this->getFileDesc( $filename[1] );
 
 		} elseif( $this->pattern == "pattern2" ) {
+			$filename = str_replace( ' ', '.', $filename );
 			$filename = explode( '.', $filename);
 
 			for ( $i = 0; $i < count( $filename ); $i++ ) {
@@ -139,6 +141,14 @@ class RenameFile {
 
 			$this->getEpisode( $newFilename[1] );
 			$this->getFileDesc( $newFilename );
+		} elseif ( $this->pattern == "pattern3" ) {
+			$filename = explode( '-', $filename );
+
+			$title = ( is_null( $this->title ) || $this->title == "" )?
+			"" : $this->title;
+
+			$this->getEpisode( $filename[1] );
+			$this->getFileDesc( $filename[1] );
 		}
 
 		$tempFilename  = ' ';
@@ -164,14 +174,16 @@ class RenameFile {
 		} else if( $this->pattern == "pattern2" ) {
 			if( strpos( $filename, "e" ) ) {
 				$temp = explode( "e" , $filename);
-				$this->episode = (String) $temp[1];
+				$this->episode = $temp[1];
 			} else {
 				$this->episode = $filename;
 			}
+		} else {
+			$this->episode = $filename;
 		}
 
 		if( (Int) $this->episode < 10 ) {
-			$this->episode = '0'.ltrim( (string) $this->episode, '0' );
+			$this->episode = '0'.ltrim( (String) $this->episode, '0' );
 		}
 	}
 
@@ -190,6 +202,8 @@ class RenameFile {
 					$this->description .= ' '.$filename[$i];
 				}
 			}
+		} else {
+			$this->description = "";
 		}
 
 		if( $this->description != "" ) {
@@ -225,16 +239,18 @@ class RenameFile {
 	public function getAllFiles( ) {
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
+		$id = 0;
 
 		foreach( glob( $this->directory.$extList, GLOB_BRACE ) as $file ) {
 			$tempFile = array();
+			$tempFile['id']   = 'file'.$id;
 			$tempFile['ext']  = $this->getFileExtention( $file );
-			$tempFile['type'] = $type;
 			$tempFile['dir']  = $this->directory;
 			$tempFile['filename']['original'] = basename(
 					$file, '.'.$tempFile['ext'] );
 
 			array_push( $this->fileList, $tempFile );
+			$id++;
 		}
 
 		finfo_close($finfo);

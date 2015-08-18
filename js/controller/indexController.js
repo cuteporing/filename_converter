@@ -9,8 +9,6 @@ $( window ).load( function() {
 	var titleInpt     = $( '#title' );
 	var directoryInpt = $( '#directory' );
 	var seasonCmb     = $( '#season' );
-	var patternRad1    = $( '#filePattern1' );
-	var patternRad2    = $( '#filePattern2' );
 
 	var defineData = (function() {
 		$.ajax({
@@ -82,16 +80,14 @@ $( window ).load( function() {
 		var posting = null;
 		var pattern = "";
 		
-		if( patternRad1.prop("checked") ) {
-			pattern = "pattern1";
-		}else if( patternRad2.prop("checked") ) {
-			pattern = "pattern2";
+		if( $( 'input[name="filePattern"]:checked' ).length > 0 ) {
+			pattern = $( 'input[name="filePattern"]:checked' ).attr( 'id' );
 		}else{
 			popupHeader.text( "Error" );
 			popupMsg.text( "Select a filename pattern" );
 			popupBox.bind({
 				popupafterclose: function(event, ui) { 
-					patternRad1.focus();
+					$( 'input[name="filePattern"]:first' ).focus();
 				}
 			});
 			popupBox.popup( "open" );
@@ -131,6 +127,11 @@ $( window ).load( function() {
 			
 			changeButtonState();
 			$('#result').html( showList( list ) );
+			$( 'input[name="chkFile"]' ).change(function() {
+				( $(this).prop("checked") )?
+				  $(this).parents( 'tr' ).addClass( 'selected' )
+				: $(this).parents( 'tr' ).removeClass( 'selected' );
+			});
 		});
 	}
 	
@@ -175,7 +176,6 @@ $( window ).load( function() {
 	$( "#btnRename" ).bind( "click", renameFiles );
 	$( '#title, #season, #directory, input[name="filePattern"]' ).bind(
 		"change", reset );
-	
 
 	// --------------------------------------------------------------------
 	// EJS (VIEW)
