@@ -1,6 +1,7 @@
 $( window ).load( function() {
 	initView();
 	
+	
 	var list          = null;
 	var popupBoxHeader= $( '#myPopupDialog h1' );
 	var popupBoxMsg   = $( '#myPopupDialog p' );
@@ -10,8 +11,16 @@ $( window ).load( function() {
 	var seasonCmb     = $( '#season' );
 
 	var defineData = (function() {
-		loadData( "/filename_converter/define.json", function(data){
+		loadData( "define.json", function( data ){
 			populateSeasonList( data );
+		})
+		return;
+	})();
+	
+	var configData = (function() {
+		loadData( "utils/config.php", function( data ){
+			( data.ENVIRONMENT == "Development" )?
+				logger.enableLogger() : logger.disableLogger();
 		})
 		return;
 	})();
@@ -215,6 +224,8 @@ $( window ).load( function() {
 	}
 	
 	
+	
+	
 	// --------------------------------------------------------------------
 	// EVENTS
 	// --------------------------------------------------------------------
@@ -251,6 +262,3 @@ $( window ).load( function() {
 			list         : list.getData() });
 	}
 });
-
-
-

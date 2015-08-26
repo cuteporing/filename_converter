@@ -5,7 +5,7 @@
  *	Production   = disables logging
  */
 
-$config['ENVIRONMENT'] = "Development";
+$config['ENVIRONMENT'] = "Production";
 $config['HOST']        = "localhost";
 $config['HEADER']      = 'http://';
 
