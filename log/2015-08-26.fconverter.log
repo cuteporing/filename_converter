@@ -8062,3 +8062,1575 @@ Array
         )
 
 )
+
+[2015-08-26 07:58:38] : ** isValidRequest **
+1
+[2015-08-26 07:58:38] : responseName
+getFiles
+[2015-08-26 07:58:38] : ** getFiles **
+[2015-08-26 07:58:39] : getAllFiles
+[2015-08-26 07:58:39] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus I - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus I - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus I - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus I - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus I - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus I - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus I - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus I - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus I - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus I - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 07:58:52] : ** isValidRequest **
+1
+[2015-08-26 07:58:52] : responseName
+getFiles
+[2015-08-26 07:58:52] : ** getFiles **
+[2015-08-26 07:58:53] : getAllFiles
+[2015-08-26 07:58:53] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus I - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus I - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus I - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus I - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus I - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus I - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus I - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus I - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus I - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus I - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 07:59:24] : ** isValidRequest **
+1
+[2015-08-26 07:59:24] : responseName
+getFiles
+[2015-08-26 07:59:24] : ** getFiles **
+[2015-08-26 07:59:25] : getAllFiles
+[2015-08-26 07:59:25] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:00:03] : ** isValidRequest **
+1
+[2015-08-26 08:00:03] : responseName
+getFiles
+[2015-08-26 08:00:03] : ** getFiles **
+[2015-08-26 08:00:04] : getAllFiles
+[2015-08-26 08:00:04] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:01:14] : ** isValidRequest **
+1
+[2015-08-26 08:01:14] : responseName
+getFiles
+[2015-08-26 08:01:14] : ** getFiles **
+[2015-08-26 08:01:15] : getAllFiles
+[2015-08-26 08:01:15] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:02:25] : ** isValidRequest **
+1
+[2015-08-26 08:02:25] : responseName
+getFiles
+[2015-08-26 08:02:25] : ** getFiles **
+[2015-08-26 08:02:26] : getAllFiles
+[2015-08-26 08:02:26] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:03:37] : ** isValidRequest **
+1
+[2015-08-26 08:03:37] : responseName
+getFiles
+[2015-08-26 08:03:37] : ** getFiles **
+[2015-08-26 08:03:38] : getAllFiles
+[2015-08-26 08:03:38] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:05:18] : ** isValidRequest **
+1
+[2015-08-26 08:05:18] : responseName
+getFiles
+[2015-08-26 08:05:18] : ** getFiles **
+[2015-08-26 08:05:19] : getAllFiles
+[2015-08-26 08:05:19] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:06:25] : ** isValidRequest **
+1
+[2015-08-26 08:06:25] : responseName
+getFiles
+[2015-08-26 08:06:25] : ** getFiles **
+[2015-08-26 08:06:26] : getAllFiles
+[2015-08-26 08:06:26] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:07:09] : ** isValidRequest **
+1
+[2015-08-26 08:07:09] : responseName
+getFiles
+[2015-08-26 08:07:09] : ** getFiles **
+[2015-08-26 08:07:10] : getAllFiles
+[2015-08-26 08:07:10] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:07:33] : ** isValidRequest **
+1
+[2015-08-26 08:07:33] : responseName
+getFiles
+[2015-08-26 08:07:33] : ** getFiles **
+[2015-08-26 08:07:34] : getAllFiles
+[2015-08-26 08:07:34] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)
+
+[2015-08-26 08:18:21] : ** isValidRequest **
+1
+[2015-08-26 08:18:21] : responseName
+getFiles
+[2015-08-26 08:18:21] : ** getFiles **
+[2015-08-26 08:18:22] : getAllFiles
+[2015-08-26 08:18:22] : getNewFilename
+Array
+(
+    [0] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 02
+                    [edited] => Spartacus II - 02
+                )
+
+        )
+
+    [1] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 03
+                    [edited] => Spartacus II - 03
+                )
+
+        )
+
+    [2] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 04
+                    [edited] => Spartacus II - 04
+                )
+
+        )
+
+    [3] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus II - 08
+                    [edited] => Spartacus II - 08
+                )
+
+        )
+
+    [4] => Array
+        (
+            [ext] => avi
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => spartacus.s02e01
+                    [edited] => Spartacus II - 01
+                )
+
+        )
+
+    [5] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E06
+                    [edited] => Spartacus II - 06
+                )
+
+        )
+
+    [6] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E09
+                    [edited] => Spartacus II - 09
+                )
+
+        )
+
+    [7] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus S02E10
+                    [edited] => Spartacus II - 10
+                )
+
+        )
+
+    [8] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E05
+                    [edited] => Spartacus II - 05
+                )
+
+        )
+
+    [9] => Array
+        (
+            [ext] => mp4
+            [dir] => C:/Users/USER/Videos/Vids/SERIES/SPARTACUS/Spartacus Season 2 Vengeance (2012)/
+            [filename] => Array
+                (
+                    [original] => Spartacus.S02E07
+                    [edited] => Spartacus II - 07
+                )
+
+        )
+
+)

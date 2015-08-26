@@ -14,10 +14,10 @@
 	    var edited   = list[idx].filename.edited + '.' + list[idx].ext;
 	    if( original == edited ) {
 	    %>
-	    <tr>
+	    <tr class="disabled">
 	      <td colspan="3">
 	        <label>
-	          <span class="chkbox"><input name="chkFile" type="checkbox" data-value="<%=idx %>"></span>
+	          <span class="chkbox"><input name="chkFile" type="checkbox" data-value="<%=idx %>" disabled></span>
 	          <span class="original"><%=list[idx].filename.original%>.<%=list[idx].ext %></span>
 	          <span class="edited"><%=list[idx].filename.edited%>.<%=list[idx].ext %></span>
 	        </label>

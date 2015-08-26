@@ -144,8 +144,10 @@ $( window ).load( function() {
 			$( 'input[name="chkAllFile"]' ).change(function() {
 				if( $(this).is(':checked') ) {
 					$( 'input[name="chkFile"]' ).each(function(i,k){
-						$(k).prop('checked',true).parents( 'tr' )
-						.addClass( 'selected' );
+						if( ! $(k).attr( "disabled" ) ){
+							$(k).prop('checked',true).parents( 'tr' )
+							.addClass( 'selected' );
+						}
 					});
 				} else {
 					$( 'input[name="chkFile"]' ).each(function(i,k){

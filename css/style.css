@@ -26,6 +26,14 @@ table {
 		padding-left: 6px;
 	}
 	
+	#tableList tbody:hover {
+	 cursor: pointer;
+	}
+	
+	#tableList tr:not(.disabled) td:hover {
+	 background: #E4E4E4;
+	}
+	
 	#tableList tbody tr.selected td {
 		color: #333;
 	}
