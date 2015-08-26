@@ -1,14 +1,40 @@
 <?php
-define( 'DEFINE_PATH', 'http://localhost/filename_converter/define.json' );
+require_once( 'utils/constants.php' );
+require_once( 'utils/utils.php' );
 
 class RenameFile {
 	var $definePath      = null;
 	var $masterData      = null;
 	var $illegalFilename = null;
-	var $sessionList     = null;
+	var $supportedExt    = null;
+	var $supportedType   = null;
+	var $responseName    = null;
+	var $fileList        = array();
 
+	var $title           = null;
+	var $season          = null;
+	var $directory       = null;
+	var $pattern         = null;
+	var $description     = "";
+	var $episode         = "";
+
+	var $isDone          = false;
+
+	/**
+	 * Defines path for define.json
+	 */
 	public function setDefinePath() {
 		$this->definePath = DEFINE_PATH;
+	}
+
+	/**
+	 * Set responsename
+	 */
+	public function setResponseName( $responsename ) {
+		if( isset( $responsename ) && !empty( $responsename ) &&
+				!is_null( $responsename ) ) {
+					$this->responseName = $responsename;
+		}
 	}
 
 	/**
@@ -27,10 +53,50 @@ class RenameFile {
 	}
 
 	/**
-	 * Set session list
+	 * Set supported file extension
 	 */
-	public function setSessionList() {
-		$this->sessionList = $this->masterData['SEASON_ROMAN'];
+	public function setSupportedExt() {
+		$this->supportedExt = $this->masterData['SUPPORTED_FILE_EXT'][0];
+	}
+
+	/**
+	 * Set title
+	 * @param <string> $title
+	 */
+	public function setTitle( $title ) {
+		$this->title = $title;
+	}
+
+	/**
+	 * Set season
+	 * @param <string> $season
+	 */
+	public function setSeason( $season ) {
+		$this->season = $season;
+	}
+
+	/**
+	 * Set pattern
+	 * @param <string> $pattern
+	 */
+	public function setPattern( $pattern ) {
+		$this->pattern = $pattern;
+	}
+
+	/**
+	 * Set directory
+	 * @param <string> $directory
+	 */
+	public function setDirectory( $directory ) {
+		$this->directory = self::sanitizeDir( $directory );
+	}
+
+	/**
+	 * Get file extension
+	 * @param <string> $path
+	 */
+	public function getFileExtention( $path ) {
+		return pathinfo($path, PATHINFO_EXTENSION);
 	}
 
 	/**
@@ -39,72 +105,258 @@ class RenameFile {
 	public function setData() {
 		$this->setMasterData();
 		$this->setIllegalFilename();
-		$this->setSessionList();
+		$this->setSupportedExt();
 	}
 
 	/**
 	 * Remove illegal filename
-	 * -------------------------------------
 	 * @param <string> $filename
 	 * @return <array> $newFilename
 	 */
 	public function sanitizeFilename( $filename ) {
 		$newFilename = array();
-		$filename = explode( '.', $filename);
 
-		for ( $i = 0; $i < count( $filename ); $i++ ) {
-			if ( !in_array( strtoupper( $filename[$i] ), $this->illegalFilename ) ) {
-				array_push( $newFilename, $filename[$i] );
-			}
+		switch ( $this->pattern ) {
+			case "pattern1":
+				$filename = explode( ' - ', $filename );
+				$this->getEpisode( $filename[0] );
+				$this->getFileDesc( $filename[1] );
+				break;
+			case "pattern2":
+				if( strpos( $filename, "." ) ) {
+					$filename = str_replace( ' ', '.', $filename );
+					$filename = explode( '.', $filename);
+
+					$this->getEpisode( $filename[1] );
+					$this->getFileDesc( $filename[2] );
+				} else {
+					( strpos( $filename, " - " ) ) ?
+						$filename = explode( ' - ', $filename )
+					: $filename = explode( ' ', $filename );
+
+					$this->getEpisode( $filename[1] );
+					$this->getFileDesc( $filename[1] );
+				}
+				break;
+			case "pattern3":
+				$filename = explode( '-', $filename );
+				$this->getEpisode( $filename[1] );
+				$this->getFileDesc( $filename[1] );
+				break;
 		}
 
-		return $newFilename;
+		$title = ( is_null( $this->title ) || $this->title == "" )?
+			"" : $this->title;
+
+		$tempFilename  = ' ';
+		$tempFilename .= $this->season.' - ';
+		$tempFilename .= $this->episode;
+		$tempFilename .= $this->description;
+
+		$newFilename = $title.$tempFilename;
+
+		return preg_replace('!\s+!', ' ', $newFilename );
 	}
 
 	/**
+	 * Get episode from file name
+	 * @param <string> $filename
+	 * @return <string> $episode
+	 */
+	public function getEpisode( $filename ) {
+		$this->episode = "";
+
+		if( $this->pattern == "pattern1" ) {
+			$this->episode = trim( ltrim( $filename, 'Episode'), ' ');
+		} else if( $this->pattern == "pattern2" ) {
+			if( strpos( $filename, "e" ) ) {
+				$temp = explode( "e" , $filename);
+				$this->episode = $temp[1];
+			} else {
+				$this->episode = $filename;
+			}
+		} else {
+			$this->episode = $filename;
+		}
+
+		if( (Int) $this->episode < 10 ) {
+			$this->episode = '0'.ltrim( (String) $this->episode, '0' );
+		}
+	}
+
+	/**
+	 * Get file description from file name
+	 * @param <array> $filename
+	 * @return <string> $description
+	 */
+	public function getFileDesc( $filename ) {
+		$this->description = "";
+		if( $this->pattern == "pattern1" ) {
+			$this->description = $filename;
+		} else if( $this->pattern == "pattern2" ) {
+			if( count( $filename ) > 2 ) {
+				for( $i = 2; $i < count( $filename ); $i++ ){
+					$this->description .= ' '.$filename[$i];
+				}
+			}
+		} else {
+			$this->description = "";
+		}
+
+		if( $this->description != "" ) {
+			$this->description = rtrim( ' ( '.ltrim(
+					$this->description, '('), ')' ).' )';
+		}
+
+		$this->description = ucwords( $this->description );
+	}
+
+
+	/**
+	 * Generate new filename
 	 * @param <string> $filename
 	 * @return <string> $newFilename
 	 */
 	public function getNewFilename( $filename ) {
-		$newFilename = "";
+		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
+			$oldFilename = $this->fileList[$i]['filename']['original'];
+			$newFilename = $this->sanitizeFilename(
+				preg_replace('!\s+!', ' ', strtolower( $oldFilename ) ) );
+
+			$this->fileList[$i]['filename']['edited'] = $newFilename;
+		}
+		Utils::log( $this->fileList, "getNewFilename" );
+		$this->isDone = true;
 	}
 
-	public function getAllFiles( $dir ) {
-		$files = array_diff( scandir($dir), array('..', '.', 'Thumbs.db') );
+	/**
+	 * Get all files under the directory
+	 * @param <string> $dir
+	 */
+	public function getAllFiles( ) {
+		$finfo = finfo_open( FILEINFO_MIME_TYPE );
+		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
 
-		var_dump( $files );
+		foreach( glob( $this->directory.$extList, GLOB_BRACE ) as $file ) {
+			$tempFile = array();
+			$tempFile['ext']  = $this->getFileExtention( $file );
+			$tempFile['dir']  = $this->directory;
+			$tempFile['filename']['original'] = basename(
+					$file, '.'.$tempFile['ext'] );
+
+			array_push( $this->fileList, $tempFile );
+		}
+
+		Utils::log( "getAllFiles" );
+
+		finfo_close($finfo);
+
+		if( count( $this->fileList ) == 0 ) {
+			Utils::createMsg( 'ERROR_MSG_0003' );
+			return;
+		}
+
+		$this->getNewFilename();
+	}
+
+	/**
+	 * Checks if directory is valid
+	 * @param <string> $dir
+	 * @return boolean
+	 */
+	public function isDir() {
+		if( ! is_dir( $this->directory ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param <object> $request
+	 */
+	public function getFiles( $request ) {
+		$this->setDirectory( $request['data']['directory'] );
+
+		if( $this->isDir() ) {
+			$this->setDefinePath();
+			$this->setData();
+			$this->setTitle( $request['data']['title'] );
+			$this->setSeason( $request['data']['season'] );
+			$this->setPattern( $request['data']['pattern'] );
+			$this->getAllFiles();
+
+			if( $this->isDone ) {
+				Utils::createMsg( '', $this->fileList );
+			}
+		} else {
+			Utils::createMsg( 'ERROR_MSG_0002' );
+		}
+	}
+
+	/**
+	 * Rename files
+	 * @param <object> $request
+	 */
+	public function renameFiles( $request ) {
+		$this->setDirectory( $request['data'][0]['dir'] );
+
+		if( $this->isDir() ) {
+			try {
+				// make directory re-writable
+				mkdir( dirname( $this->directory ), 0777, true );
+
+				foreach ( $request['data'] as $row ) {
+					// source file
+					$srcfile = $row['dir'].$row['filename']['original'].'.'.$row['ext'];
+					// destination file
+					$dstfile = $row['dir'].$row['filename']['edited'].'.'.$row['ext'];
+					// rename
+					rename($srcfile, $dstfile);
+
+					Utils::log( $srcfile, "source file" );
+					Utils::log( $dstfile, "destination file" );
+				}
+
+				Utils::setResultMsg();
+				Utils::createMsg( '', array( 'msg'=>'Done' ) );
+			} catch ( Exception $e ) {
+				Utils::createMsg( $e );
+			}
+		}
+
 	}
 
 	/**
 	 * Initialize process
-	 * -------------------------------------
-	 * @param <string> $filename
+	 * @param <object> $request
 	 */
-	public function init( $dir ) {
-		$this->setDefinePath();
-		$this->setData();
-		foreach(glob($dir.'{*.avi,*.mp4}', GLOB_BRACE) as $file)
-		{
-			echo "filename: $file : filetype: " . filetype($file) . "<br />";
+	public function init( $request ) {
+		if( $this->responseName == "getFiles" ) {
+			Utils::log( "** getFiles **" );
+			$this->getFiles( $request );
+		} elseif ( $this->responseName == "renameFiles" ) {
+			Utils::log( "** renameFiles **" );
+			$this->renameFiles( $request );
 		}
-// 		$filename = $this->sanitizeFilename( $filename );
-// 		$this->getAllFiles( $dir );
-// 		$newFilename = $this->getNewFilename( $filename );
-
 	}
-// 	public function init( $filename ) {
-// 		$this->setDefinePath();
-// 		$this->setData();
 
-// 		$filename = $this->sanitizeFilename( $filename );
-// 		$newFilename = $this->getNewFilename( $filename );
-
-// 	}
-
+	/**
+	 * @param <string> $dir
+	 * @return mixed
+	 */
+	public static function sanitizeDir( $dir ) {
+		return rtrim( str_replace('\\', '/', $dir), '/' ).'/';
+	}
 }
 
-$renameFile = new RenameFile;
-$renameFile->init( 'C:\Users\USER\Videos\Vids\SERIES\LEVERAGE\Season 3\*' );
-// $renameFile->init( 'Leverage.S03E14.The.Ho.Ho.Ho.Job.HDTV.XviD-FQM' );
+if( Utils::isValidRequest() ) {
+	$renameFile = new RenameFile;
+	$renameFile->setResponseName( $_POST['responseName'] );
+	$renameFile->init( $_POST );
+} else {
+	Utils::createMsg( 'ERROR_MSG_0004' );
+}
+
 ?>

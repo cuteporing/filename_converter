@@ -1,31 +1,26 @@
 <!DOCTYPE>
 <html>
-	<head>
-		<title>FILENAME CONVERSION</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="js/all.js"></script>
-	</head>
-	<body style="color:black;">
-	&#8212;
-		<table>
-			<tr>
-				<td><label>Has season </label></td>
-				<td><input type="checkbox" id="hasSeason" checked="checked" /></td>
-			</tr>
-			<tr>
-				<td><label>Season </label></td>
-				<td><select id="season"></select></td>
-			</tr>
-			<tr>
-        <td><label>Title </label></td>
-        <td><input id="title" type="text" value=""/></td>
-      </tr>
-			<tr>
-				<td><label>Filename </label></td>
-				<td><input id="filename" type="text" value=""/></td>
-			</tr>
-		</table>
-		<button id="btnConvert">Convert</button>
-		<p id="result" style="border-top: 2px dashed grey"></p>
-	</body>
+  <head>
+    <title>FILENAME CONVERSION</title>
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <!-- Include custom stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Include the jQuery library -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Include the jQuery Mobile library -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- Include ejs library -->
+    <script src="lib/ejs_production.js"></script>
+    <!-- Include controller -->
+    <script src="js/controller/commonController.js"></script>
+    <script src="js/controller/indexController.js"></script>
+    <!-- Include models -->
+    <script src="js/model/optionsModel.js"></script>
+    <script src="js/model/listModel.js"></script>
+  </head>
+  <body>
+  </body>
 </html>

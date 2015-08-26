@@ -1,0 +1,41 @@
+<% if( responseName != "result" ) { %>
+<table id="tableList" class="ui-responsive ui-shadow" data-role="table">
+  <thead>
+    <tr>
+      <th><input name="chkAllFile" type="checkbox" checked="checked"></th>
+      <th>ORIGINAL</th>
+      <th>NEW</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var idx in list) { %>
+	    <% 
+	    var original = list[idx].filename.original + '.' + list[idx].ext;
+	    var edited   = list[idx].filename.edited + '.' + list[idx].ext;
+	    if( original == edited ) {
+	    %>
+	    <tr class="disabled">
+	      <td colspan="3">
+	        <label>
+	          <span class="chkbox"><input name="chkFile" type="checkbox" data-value="<%=idx %>" disabled></span>
+	          <span class="original"><%=list[idx].filename.original%>.<%=list[idx].ext %></span>
+	          <span class="edited"><%=list[idx].filename.edited%>.<%=list[idx].ext %></span>
+	        </label>
+	      </td>
+	    </tr>
+	    <% }else{ %>
+	    <tr class="selected">
+	      <td colspan="3">
+	        <label>
+	          <span class="chkbox"><input name="chkFile" type="checkbox" data-value="<%=idx %>" checked="checked"></span>
+	          <span class="original"><%=list[idx].filename.original%>.<%=list[idx].ext %></span>
+	          <span class="edited"><%=list[idx].filename.edited%>.<%=list[idx].ext %></span>
+	        </label>
+	      </td>
+	    </tr>
+	    <% } %>
+    <% } %>
+  </tbody>
+</table>
+<% } %>
+

@@ -9,9 +9,20 @@
         "VII",
         "VIII",
         "IX",
-        "X"
+        "X",
+        "XI",
+        "XII",
+        "XIII",
+        "XIV",
+        "XV",
+        "XVI",
+        "XVII",
+        "XVIII",
+        "XIX",
+        "XX"
     ],
     "ILLEGAL_FILENAME": [
+        "EPISODE",
         "HDTV",
         "XVID",
         "XVID-SYS",
@@ -20,6 +31,25 @@
         "XVID-LOL",
         "XVID-MSPAINT",
         "XVID-XII",
-        "XVID-FEVER"
+        "XVID-FEVER",
+        "XVID-ASAP",
+        "XVID-P0W4",
+        "X264-ASAP",
+        "X264-EVOLVE",
+        "X264-MRS",
+        "X264-2HD",
+        "X264-FQM",
+        "480P"
+    ],
+    "SUPPORTED_FILE_EXT": [
+        {
+            "VIDEO": [
+                "*.avi",
+                "*.mp4",
+                "*.mkv",
+                "*.srt",
+                "*.flv"
+            ]
+        }
     ]
 }

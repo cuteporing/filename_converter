@@ -1,0 +1,38 @@
+<table id="tableCondition" class="ui-responsive ui-shadow" data-role="table" >
+  <thead>
+    <tr>
+      <th data-priority="1"></th>
+      <th data-priority="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan = "4">
+        <label>Series <input type="checkbox" id="isSeries" checked="checked" /></label> 
+        <label>Original filename pattern</label>
+        <fieldset data-role="controlgroup" data-mini="true">
+          <input type="radio" name="filePattern" id="pattern1" />
+          <label for="pattern1">Episode 1 - Description</label>
+          <input type="radio" name="filePattern" id="pattern2" />
+          <label for="pattern2">Title.SE01E01.Description</label>
+          <input type="radio" name="filePattern" id="pattern3" />
+          <label for="pattern3">Title-01</label>
+        </fieldset>
+      </td>
+      <td>
+        <tr>
+          <td><label>Title <input id="title" type="text" value="Spartacus"/></label></td>
+        </tr>
+        <tr>
+          <td><label>Season <select id="season"></select></label></td>
+        </tr>
+        <tr>
+          <td><label>Directory <input id="directory" type="text" value="C:\Users\USER\Videos\Vids\SERIES\SPARTACUS\Spartacus Season 2 Vengeance (2012)"/></label></td>
+        </tr>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button id="btnCheck">Check files</button>
+<button id="btnRename" class="hide">Rename</button>
+
