@@ -3,22 +3,26 @@ require_once( 'error_msg.php' );
 
 class Utils {
 
-	public static function log( $info, $label, $notResponse = false ) {
+	public static function log( $msg, $label, $notResponse = false ) {
+		$path = LOG_PATH . date('Y-m-d') . ".fconverter.log";
+		$fp   = fopen( $path ,"a" );
+		if($fp){
+			if( is_array( $msg ) ) {
+				if( isset( $label ) && !empty( $label ) ) {
+					fwrite( $fp, PHP_EOL."[".date('Y-m-d H:i:s')."] : ".$label );
+				}
 
-		if ( ENVIRONMENT != 'Development' && !$notResponse) {
-			return;
+				fwrite( $fp, PHP_EOL.print_r( $msg, 1 ) );
+			} else {
+				if( isset( $label ) && !empty( $label ) ) {
+					$msg = $label.PHP_EOL.$msg;
+				}
+
+				fwrite( $fp, PHP_EOL."[".date('Y-m-d H:i:s')."] : ".$msg );
+			}
+
+			fclose( $fp );
 		}
-		if( isset( $label ) && !empty($label) ) {
-			echo "<hr>";
-			echo $label."\xA";
-			echo "<hr>";
-		}
-
-
-		if( is_array( $info ) )
-			echo '<pre>',print_r( $info ),'</pre>';
-		else
-			echo $info;
 
 	}
 
@@ -35,6 +39,8 @@ class Utils {
 					$errorCode = str_replace( 'ERROR_MSG_', '', $errorCode )
 					: $errorCode = 'ERROR_MSG_'.$errorCode;
 			}
+
+			Utils::log( $errorCode, "ERROR CODE" );
 		} else {
 			$errorCode = "";
 		}
@@ -53,6 +59,8 @@ class Utils {
 			} else {
 				$errMsg = constant($errorCode);
 			}
+
+			Utils::log( $errMsg, "ERROR MESSAGE" );
 		} else {
 			$errMsg = "";
 		}
@@ -83,8 +91,6 @@ class Utils {
 		( isset( $data ) && !empty( $data ) && !is_null( $data ) )?
 			$msg['data'] = $data : $msg['data'] = array();
 
-		self::log( $msg, '' );
-
 		echo json_encode( $msg );
 	}
 
@@ -97,6 +103,9 @@ class Utils {
 			( in_array( $_POST['responseName'], $RESPONSE_NAME ) )?
 				$valid = true : $valid = false;
 		}
+
+		Utils::log( $valid, "** isValidRequest **" );
+		Utils::log( $_POST['responseName'], "responseName" );
 
 		return $valid;
 	}

@@ -1,7 +1,6 @@
 $( window ).load( function() {
 	initView();
-
-	var masterData    = null;
+	
 	var list          = null;
 	var popupBoxHeader= $( '#myPopupDialog h1' );
 	var popupBoxMsg   = $( '#myPopupDialog p' );
@@ -11,23 +10,27 @@ $( window ).load( function() {
 	var seasonCmb     = $( '#season' );
 
 	var defineData = (function() {
-		$.ajax({
-			'global': false,
-			'url': "/filename_converter/define.json",
-			'dataType': "json",
-			'success': function (data) {
-				masterData = data;
-				populateSeasonList();
-			}
-		});
+		loadData( "/filename_converter/define.json", function(data){
+			populateSeasonList( data );
+		})
 		return;
 	})();
 	
+	function loadData( url, callback ) {
+		$.ajax({
+			'global': false,
+			'url': url,
+			'dataType': "json",
+			'success': callback
+		});
+	}
+	
 	/**
 	 * ADD SEASON ON OPTIONS
+	 * @param data
 	 */
-	function populateSeasonList() {
-		var season  = masterData.SEASON_ROMAN;
+	function populateSeasonList( data ) {
+		var season  = data.SEASON_ROMAN;
 	
 		$.each(season, function() {
 			seasonCmb.append( $( "<option />" ).val( this )
@@ -37,6 +40,10 @@ $( window ).load( function() {
 		seasonCmb.selectmenu("refresh");
 	}
 	
+	/**
+	 * SEND POST
+	 * @param options
+	 */
 	function sendPost( options ) {
 		console.log( 'options', options );
 		var posting = $.post( options.getURL(), options );
@@ -152,6 +159,13 @@ $( window ).load( function() {
 				  $(this).parents( 'tr' ).addClass( 'selected' )
 				: $(this).parents( 'tr' ).removeClass( 'selected' );
 			});
+
+			// Select all initial display
+			if ( $('input[name="chkFile"]:checked').length > 0 ) {
+				$( 'input[name="chkAllFile"]' ).prop( "checked", true );
+			} else {
+				$( 'input[name="chkAllFile"]' ).prop( "checked", false )
+			}
 		});
 	}
 	
@@ -198,6 +212,7 @@ $( window ).load( function() {
 		return tempData;
 	}
 	
+	
 	// --------------------------------------------------------------------
 	// EVENTS
 	// --------------------------------------------------------------------
@@ -205,6 +220,7 @@ $( window ).load( function() {
 	$( "#btnRename" ).bind( "click", renameFiles );
 	$( '#title, #season, #directory, input[name="filePattern"]' ).bind(
 		"change", reset );
+
 
 	// --------------------------------------------------------------------
 	// EJS (VIEW)

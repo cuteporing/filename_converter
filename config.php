@@ -1,15 +1,15 @@
 <?php
 /**
  * ENVIRONMENT ( Development / Production )
- * 	Developement = enables logging
+ * 	Development = enables logging
  *	Production   = disables logging
  */
 
-$config['ENVIRONMENT'] = "Production";
-$config['host']        = "localhost";
-
+$config['ENVIRONMENT'] = "Development";
+$config['HOST']        = "localhost";
 $config['HEADER']      = 'http://';
-$config['DEFINE_PATH'] = $config['HEADER'].$config['host'].'/filename_converter/define.json'; // define.json
+
+$config['DEFINE_PATH'] = $config['HEADER'].$config['HOST'].'/filename_converter/define.json'; // define.json
 
 $RESPONSE_NAME = array("getFiles", "renameFiles" );
 ?>

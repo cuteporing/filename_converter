@@ -116,40 +116,37 @@ class RenameFile {
 	public function sanitizeFilename( $filename ) {
 		$newFilename = array();
 
-		if( $this->pattern == "pattern1" ) {
+		switch ( $this->pattern ) {
+			case "pattern1":
+				$filename = explode( ' - ', $filename );
+				$this->getEpisode( $filename[0] );
+				$this->getFileDesc( $filename[1] );
+				break;
+			case "pattern2":
+				if( strpos( $filename, "." ) ) {
+					$filename = str_replace( ' ', '.', $filename );
+					$filename = explode( '.', $filename);
 
-			$filename = explode( ' - ', $filename );
+					$this->getEpisode( $filename[1] );
+					$this->getFileDesc( $filename[2] );
+				} else {
+					( strpos( $filename, " - " ) ) ?
+						$filename = explode( ' - ', $filename )
+					: $filename = explode( ' ', $filename );
 
-			$title = ( is_null( $this->title ) || $this->title == "" )?
-				"" : $this->title;
-
-			$this->getEpisode( $filename[0] );
-			$this->getFileDesc( $filename[1] );
-
-		} elseif( $this->pattern == "pattern2" ) {
-			$filename = str_replace( ' ', '.', $filename );
-			$filename = explode( '.', $filename);
-
-			for ( $i = 0; $i < count( $filename ); $i++ ) {
-				if ( !in_array( strtoupper( $filename[$i] ), $this->illegalFilename ) ) {
-					array_push( $newFilename, $filename[$i] );
+					$this->getEpisode( $filename[1] );
+					$this->getFileDesc( $filename[1] );
 				}
-			}
-			// Title
-			$title = ( is_null( $this->title ) || $this->title == "" )?
-				ucwords( $newFilename[0] ) : $this->title;
-
-			$this->getEpisode( $newFilename[1] );
-			$this->getFileDesc( $newFilename );
-		} elseif ( $this->pattern == "pattern3" ) {
-			$filename = explode( '-', $filename );
-
-			$title = ( is_null( $this->title ) || $this->title == "" )?
-			"" : $this->title;
-
-			$this->getEpisode( $filename[1] );
-			$this->getFileDesc( $filename[1] );
+				break;
+			case "pattern3":
+				$filename = explode( '-', $filename );
+				$this->getEpisode( $filename[1] );
+				$this->getFileDesc( $filename[1] );
+				break;
 		}
+
+		$title = ( is_null( $this->title ) || $this->title == "" )?
+			"" : $this->title;
 
 		$tempFilename  = ' ';
 		$tempFilename .= $this->season.' - ';
@@ -229,7 +226,7 @@ class RenameFile {
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
 		}
-
+		Utils::log( $this->fileList, "getNewFilename" );
 		$this->isDone = true;
 	}
 
@@ -250,6 +247,8 @@ class RenameFile {
 
 			array_push( $this->fileList, $tempFile );
 		}
+
+		Utils::log( "getAllFiles" );
 
 		finfo_close($finfo);
 
@@ -315,6 +314,9 @@ class RenameFile {
 					$dstfile = $row['dir'].$row['filename']['edited'].'.'.$row['ext'];
 					// rename
 					rename($srcfile, $dstfile);
+
+					Utils::log( $srcfile, "source file" );
+					Utils::log( $dstfile, "destination file" );
 				}
 
 				Utils::setResultMsg();
@@ -332,8 +334,10 @@ class RenameFile {
 	 */
 	public function init( $request ) {
 		if( $this->responseName == "getFiles" ) {
+			Utils::log( "** getFiles **" );
 			$this->getFiles( $request );
 		} elseif ( $this->responseName == "renameFiles" ) {
+			Utils::log( "** renameFiles **" );
 			$this->renameFiles( $request );
 		}
 	}
