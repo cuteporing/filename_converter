@@ -1,31 +1,5 @@
 <?php
-require_once( 'error_msg.php' );
-
 class Utils {
-
-	public static function log( $msg, $label, $notResponse = false ) {
-		$path = LOG_PATH . date('Y-m-d') . ".fconverter.log";
-		$fp   = fopen( $path ,"a" );
-		if($fp){
-			if( is_array( $msg ) ) {
-				if( isset( $label ) && !empty( $label ) ) {
-					fwrite( $fp, PHP_EOL."[".date('Y-m-d H:i:s')."] : ".$label );
-				}
-
-				fwrite( $fp, PHP_EOL.print_r( $msg, 1 ) );
-			} else {
-				if( isset( $label ) && !empty( $label ) ) {
-					$msg = $label.PHP_EOL.$msg;
-				}
-
-				fwrite( $fp, PHP_EOL."[".date('Y-m-d H:i:s')."] : ".$msg );
-			}
-
-			fclose( $fp );
-		}
-
-	}
-
 	/**
 	 * @param <string>  $errorCode
 	 * @return <string> $errorCode
@@ -40,7 +14,6 @@ class Utils {
 					: $errorCode = 'ERROR_MSG_'.$errorCode;
 			}
 
-			Utils::log( $errorCode, "ERROR CODE" );
 		} else {
 			$errorCode = "";
 		}
@@ -60,7 +33,7 @@ class Utils {
 				$errMsg = constant($errorCode);
 			}
 
-			Utils::log( $errMsg, "ERROR MESSAGE" );
+			Logger::error( $errMsg );
 		} else {
 			$errMsg = "";
 		}
@@ -78,6 +51,7 @@ class Utils {
 	}
 
 	/**
+	 * Create response message
 	 * @param <string> $errorCode
 	 * @param <array>  $data
 	 * @return <array> $msg
@@ -94,20 +68,53 @@ class Utils {
 		echo json_encode( $msg );
 	}
 
+	/**
+	 * Check if request is valid
+	 * @return <boolean> $valid
+	 */
 	public static function isValidRequest() {
+		Logger::debug( '------------------------------------------' );
 		global $RESPONSE_NAME;
 		$valid = false;
 
 		if( isset( $_POST['responseName'] ) && !is_null( $_POST['responseName'] ) ) {
 
-			( in_array( $_POST['responseName'], $RESPONSE_NAME ) )?
-				$valid = true : $valid = false;
+			if ( in_array( $_POST['responseName'], $RESPONSE_NAME ) ) {
+				$valid = true;
+			} else {
+				$valid = false;
+				Logger::warn( "Request name {$_POST['responseName']} is not valid" );
+			}
 		}
 
-		Utils::log( $valid, "** isValidRequest **" );
-		Utils::log( $_POST['responseName'], "responseName" );
-
 		return $valid;
+	}
+
+	/**
+	 * @param <string> $dir
+	 * @return mixed
+	 */
+	public static function sanitizeDir( $dir ) {
+		if( !empty( $dir ) ) {
+			return rtrim( str_replace('\\', '/', $dir), '/' ).'/';
+		} else {
+			return "";
+		}
+	}
+
+	/**
+	 * Checks if directory is valid
+	 * @param <string> $dir
+	 * @return boolean
+	 */
+	public static function isDir( $dir ) {
+		Logger::debug( 'Directory: '.$dir );
+		if( ! is_dir( $dir ) || $dir == "" ) {
+			Utils::createMsg( 'ERROR_MSG_0002' );
+			return false;
+		}
+
+		return true;
 	}
 }
 

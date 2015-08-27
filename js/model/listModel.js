@@ -1,15 +1,15 @@
 var LIST = function ( result ) {
-	this.responseName = null;
-	this.errorCode    = "";
-	this.errorMsg     = "";
-	this.data         = [];
+	responseName = null;
+	errorCode    = "";
+	errorMsg     = "";
+	data         = [];
 	
 	result = JSON.parse( result );
-	console.log( 'result', result );
 	this.setResponseName( result );
 	this.setErrorCode( result );
 	this.setErrorMsg( result );
 	this.setData( result );
+	console.log(this);
 }
 
 

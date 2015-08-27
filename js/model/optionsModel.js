@@ -5,7 +5,6 @@ var OPTIONS = function ( responseName ) {
 	this.data           = [];
 		
 	this.setResponseName( responseName );
-
 };
 
 // set URL

@@ -1,13 +1,9 @@
 <?php
-require_once( 'utils/constants.php' );
-require_once( 'utils/utils.php' );
-
 class RenameFile {
 	var $definePath      = null;
 	var $masterData      = null;
 	var $illegalFilename = null;
 	var $supportedExt    = null;
-	var $supportedType   = null;
 	var $responseName    = null;
 	var $fileList        = array();
 
@@ -35,6 +31,9 @@ class RenameFile {
 				!is_null( $responsename ) ) {
 					$this->responseName = $responsename;
 		}
+
+		Logger::debug( 'RESPONSE NAME ( '.$this->responseName.' )' );
+		Logger::debug( '------------------------------------------' );
 	}
 
 	/**
@@ -88,7 +87,7 @@ class RenameFile {
 	 * @param <string> $directory
 	 */
 	public function setDirectory( $directory ) {
-		$this->directory = self::sanitizeDir( $directory );
+		$this->directory = Utils::sanitizeDir( $directory );
 	}
 
 	/**
@@ -114,6 +113,7 @@ class RenameFile {
 	 * @return <array> $newFilename
 	 */
 	public function sanitizeFilename( $filename ) {
+		Logger::debug( "Creating a new filename and removing unnecessary description..." );
 		$newFilename = array();
 
 		switch ( $this->pattern ) {
@@ -153,9 +153,11 @@ class RenameFile {
 		$tempFilename .= $this->episode;
 		$tempFilename .= $this->description;
 
-		$newFilename = $title.$tempFilename;
+		$newFilename = preg_replace('!\s+!', ' ', $title.$tempFilename );
 
-		return preg_replace('!\s+!', ' ', $newFilename );
+		Logger::debug( 'New filename: '.$newFilename );
+
+		return $newFilename;
 	}
 
 	/**
@@ -218,6 +220,7 @@ class RenameFile {
 	 * @return <string> $newFilename
 	 */
 	public function getNewFilename( $filename ) {
+		Logger::info( "Get new filename" );
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
 			$oldFilename = $this->fileList[$i]['filename']['original'];
@@ -226,7 +229,7 @@ class RenameFile {
 
 			$this->fileList[$i]['filename']['edited'] = $newFilename;
 		}
-		Utils::log( $this->fileList, "getNewFilename" );
+
 		$this->isDone = true;
 	}
 
@@ -235,6 +238,8 @@ class RenameFile {
 	 * @param <string> $dir
 	 */
 	public function getAllFiles( ) {
+		Logger::info( 'Get all files in the directory ');
+
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$extList = '{'.implode(',', $this->supportedExt['VIDEO'] ).'}';
 
@@ -247,9 +252,6 @@ class RenameFile {
 
 			array_push( $this->fileList, $tempFile );
 		}
-
-		Utils::log( "getAllFiles" );
-
 		finfo_close($finfo);
 
 		if( count( $this->fileList ) == 0 ) {
@@ -260,18 +262,7 @@ class RenameFile {
 		$this->getNewFilename();
 	}
 
-	/**
-	 * Checks if directory is valid
-	 * @param <string> $dir
-	 * @return boolean
-	 */
-	public function isDir() {
-		if( ! is_dir( $this->directory ) ) {
-			return false;
-		}
 
-		return true;
-	}
 
 	/**
 	 * @param <object> $request
@@ -279,7 +270,7 @@ class RenameFile {
 	public function getFiles( $request ) {
 		$this->setDirectory( $request['data']['directory'] );
 
-		if( $this->isDir() ) {
+		if( Utils::isDir( $this->directory ) ) {
 			$this->setDefinePath();
 			$this->setData();
 			$this->setTitle( $request['data']['title'] );
@@ -288,10 +279,9 @@ class RenameFile {
 			$this->getAllFiles();
 
 			if( $this->isDone ) {
+				Logger::info( '...Done.' );
 				Utils::createMsg( '', $this->fileList );
 			}
-		} else {
-			Utils::createMsg( 'ERROR_MSG_0002' );
 		}
 	}
 
@@ -302,12 +292,13 @@ class RenameFile {
 	public function renameFiles( $request ) {
 		$this->setDirectory( $request['data'][0]['dir'] );
 
-		if( $this->isDir() ) {
+		if( Utils::isDir( $this->directory ) ) {
 			try {
 				// make directory re-writable
 				mkdir( dirname( $this->directory ), 0777, true );
 
 				foreach ( $request['data'] as $row ) {
+					Logger::debug( 'Start renaming files...' );
 					// source file
 					$srcfile = $row['dir'].$row['filename']['original'].'.'.$row['ext'];
 					// destination file
@@ -315,8 +306,8 @@ class RenameFile {
 					// rename
 					rename($srcfile, $dstfile);
 
-					Utils::log( $srcfile, "source file" );
-					Utils::log( $dstfile, "destination file" );
+					Logger::debug( "Source file: ".$srcfile );
+					Logger::debug( "Destination file: ".$dstfile );
 				}
 
 				Utils::setResultMsg();
@@ -325,7 +316,6 @@ class RenameFile {
 				Utils::createMsg( $e );
 			}
 		}
-
 	}
 
 	/**
@@ -333,30 +323,13 @@ class RenameFile {
 	 * @param <object> $request
 	 */
 	public function init( $request ) {
-		if( $this->responseName == "getFiles" ) {
-			Utils::log( "** getFiles **" );
-			$this->getFiles( $request );
-		} elseif ( $this->responseName == "renameFiles" ) {
-			Utils::log( "** renameFiles **" );
-			$this->renameFiles( $request );
+		Logger::info( 'Initialize request...' );
+		switch ( $this->responseName ) {
+			case "getFiles"   : $this->getFiles( $request );    break;
+			case "renameFiles": $this->renameFiles( $request ); break;
 		}
 	}
 
-	/**
-	 * @param <string> $dir
-	 * @return mixed
-	 */
-	public static function sanitizeDir( $dir ) {
-		return rtrim( str_replace('\\', '/', $dir), '/' ).'/';
-	}
-}
 
-if( Utils::isValidRequest() ) {
-	$renameFile = new RenameFile;
-	$renameFile->setResponseName( $_POST['responseName'] );
-	$renameFile->init( $_POST );
-} else {
-	Utils::createMsg( 'ERROR_MSG_0004' );
 }
-
 ?>

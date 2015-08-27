@@ -26,17 +26,24 @@ table {
 		padding-left: 6px;
 	}
 	
+	#tableList tbody tr.selected td {
+    color: #333;
+  }
+	
 	#tableList tr:not(.disabled) td:hover {
 	 background: #E4E4E4;
 	}
 	
-	#tableList tbody tr.selected td {
-		color: #333;
-	}
+  #tableList label {
+    margin: 0;
+    padding: 0;
+  }
+
 	  #tableList label .original,
 	  #tableList label .edited,
 	  #tableList label .chkbox {
 	    display: inline-block;
+	    padding:.3em 0 .3em 0;
 	  }
 	  
 	  #tableList label .original,
