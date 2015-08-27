@@ -150,12 +150,7 @@ $( window ).load( function() {
 				$('#result').html( showList( list ) );
 
 				common.evCheckAllState();
-				// Select all initial display
-				if ( $('input[name="chkFile"]:checked').length > 0 ) {
-					$( 'input[name="chkAllFile"]' ).prop( "checked", true );
-				} else {
-					$( 'input[name="chkAllFile"]' ).prop( "checked", false )
-				}
+				common.evCheckAllInit();
 				common.evCheckState();
 				changeButtonState();
 			});

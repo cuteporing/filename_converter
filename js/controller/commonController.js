@@ -34,7 +34,6 @@ var common = {
 	 */
 	loadData: function( url, callback ) {
 		$.ajax({
-			'global': false,
 			'url': url,
 			'dataType': "json",
 			'success': callback
@@ -69,6 +68,15 @@ var common = {
 			  $(this).parents( 'tr' ).addClass( 'selected' )
 			: $(this).parents( 'tr' ).removeClass( 'selected' );
 		});
+	},
+	
+	evCheckAllInit: function() {
+		// Select all initial display
+		if ( $('input[name="chkFile"]:checked').length > 0 ) {
+			$( 'input[name="chkAllFile"]' ).prop( "checked", true );
+		} else {
+			$( 'input[name="chkAllFile"]' ).prop( "checked", false )
+		}
 	},
 	
 	evCheckAllState: function() {
