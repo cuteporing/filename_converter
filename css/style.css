@@ -10,6 +10,11 @@ table {
   min-width: 350px;
 }
 
+#tableCondition fieldset {
+	max-height: 173px;
+	overflow-y: scroll;
+}
+
 #tableList {
   border-spacing:0; /* Removes the cell spacing via CSS */
   border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
@@ -62,4 +67,8 @@ table {
 	    text-align: left;
 	  }
 	  
-  
+ .ui-content .ui-listview, .ui-panel-inner>.ui-listview {
+    position: absolute;
+    z-index: 100;
+    width: 47%;
+}

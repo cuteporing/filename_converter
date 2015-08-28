@@ -7,19 +7,28 @@ $( window ).load( function() {
 		// EJS (VIEW)
 		// --------------------------------------------------------------------
 		var page = new EJS({url: 'js/view/indexView.ejs'}).render({
+			headerView   : initHeaderView(),
 			conditionView: initConditionHeader(),
-			popupMsgView : popupMsgView()
+			popupMsgView : initPopupMsgView()
 		});
 		
+		function initHeaderView() {
+			console.info( '-- headerView' );
+			return new EJS({url: 'js/view/headerView.ejs'}).render({});
+		}
+		
 		function initConditionHeader() {
+			console.info( '-- initConditionHeader' );
 			return new EJS({url: 'js/view/conditionView.ejs'}).render({});
 		}
 		
-		function popupMsgView() {
+		function initPopupMsgView() {
+			console.info( '-- popupMsgView' );
 			return new EJS({url: 'js/view/popupMsgView.ejs'}).render({});
 		}
 		
 		function showList( list ) {
+			console.info( '-- showList' );
 			return new EJS({url: 'js/view/listView.ejs'}).render({
 				responseName : list.getResponseName(),
 				list         : list.getData() });
@@ -33,22 +42,27 @@ $( window ).load( function() {
 		var popupBoxHeader= $( '#myPopupDialog h1' );
 		var popupBoxMsg   = $( '#myPopupDialog p' );
 		var popupBox      = $( '#myPopupDialog' );
-		var titleInpt     = $( '#title' );
-		var directoryInpt = $( '#directory' );
-		var seasonCmb     = $( '#season' );
+		var titleInpt     = $( 'input[name="title"]' );
+		var directoryInpt = $( 'input[name="directory"]' );
+		var seasonCmb     = $( 'select[name="season"]' );
+		var patternRad    = $( 'input[name="filePattern"]' );
 
 		var defineData = (function() {
+			console.info( '-- defineData' );
 			common.loadData( "define.json", function( data ){
 				populateSeasonList( data );
+				common.renderSaveTitle( '#titleList' );
+				common.renderSaveDirectory( '#dirList' );
 			})
 			return;
 		})();
-
+		
 		/**
 		 * ADD SEASON ON OPTIONS
 		 * @param data
 		 */
 		function populateSeasonList( data ) {
+			console.info( '-- populateSeasonList' );
 			var season  = data.SEASON_ROMAN;
 		
 			$.each(season, function() {
@@ -59,7 +73,12 @@ $( window ).load( function() {
 			seasonCmb.selectmenu("refresh");
 		}
 
+		/**
+		 * BUTTON CHECK AND RENAME CHANGE STATE
+		 * @param defaultState
+		 */
 		function changeButtonState( defaultState ) {
+			console.info( '-- changeButtonState' );
 			if ( defaultState ) {
 				$('#btnCheck').removeClass( "hide" );
 				$('#btnRename').addClass( "hide" );
@@ -73,6 +92,7 @@ $( window ).load( function() {
 		 * RESET LIST DATA AND CHANGE BUTTON STATE TO DEFAULT
 		 */
 		function reset() {
+			console.info( '-- reset' );
 			list = null;
 			changeButtonState( true );
 		}
@@ -81,6 +101,7 @@ $( window ).load( function() {
 		 * CLEAR / RESET VALUES
 		 */
 		function clear() {
+			console.info( '-- clear' );
 			directoryInpt.val( "" );
 			titleInpt.val( "" );
 			seasonCmb[0].selectedIndex = 0;
@@ -91,6 +112,7 @@ $( window ).load( function() {
 		 * SET POPUP BOX CONTENT
 		 */
 		function setPopupBox( msg, isError ) {
+			console.info( '-- setPopupBox' );
 			( isError )?
 			  popupBoxHeader.text( "Error" )
 			: popupBoxHeader.text( "Success" );
@@ -101,6 +123,7 @@ $( window ).load( function() {
 		 * GET FILES
 		 */
 		function getFiles() {
+			console.info( '-- getFiles' );
 			var data    = {};
 			var posting = null;
 			var pattern = "";
@@ -127,6 +150,11 @@ $( window ).load( function() {
 			var options = new OPTIONS( "getFiles" );
 			options.setURL( "utils/process.php" );
 			options.setData( data );
+			
+			common.saveTitle( data.title );
+			common.saveDirectory( data.directory );
+			common.renderSaveTitle( '#titleList' );
+			common.renderSaveDirectory( '#dirList' );
 			
 			var posting = common.sendPost( options );
 
@@ -157,6 +185,7 @@ $( window ).load( function() {
 		}
 		
 		function renameFiles() {
+			console.info( '-- renameFiles' );
 			var data = getSelectedData();
 			
 			var options = new OPTIONS( "renameFiles" );
@@ -188,6 +217,7 @@ $( window ).load( function() {
 		}
 		
 		function getSelectedData() {
+			console.info( '-- getSelectedData' );
 			var tempData = [];
 			var data     = list.getData();
 			$( 'input[name="chkFile"]' ).each(function(i,k){
@@ -204,8 +234,22 @@ $( window ).load( function() {
 		// --------------------------------------------------------------------
 		$( "#btnCheck" ).bind( "click", getFiles );
 		$( "#btnRename" ).bind( "click", renameFiles );
-		$( '#title, #season, #directory, input[name="filePattern"]' ).bind(
-			"change", reset );
+		titleInpt.bind( "change", reset );
+		directoryInpt.bind( "change", reset );
+		seasonCmb.bind( "change", reset );
+		patternRad.bind( "change", reset );
+
+//		    $('#filterBasic-input input[data-type="search"]').on('keydown', function(e) {
+//		        var code = (e.keyCode ? e.keyCode : e.which);
+//		         if (code == 13) { //Enter keycode
+//		             // this handles the enter key
+//		         }
+//		    });
+//		    $("#filterBasic-input form").submit(function() {
+//		        // this will handle both the enter key and go button on device
+//		        alert('enter key or device go button pressed');
+//		    });
+
 
 		return;
 	})();

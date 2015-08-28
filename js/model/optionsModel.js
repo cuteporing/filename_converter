@@ -11,7 +11,7 @@ var OPTIONS = function ( responseName ) {
 OPTIONS.prototype.setURL = function( url ) {
 	this.url = url;
 }
-//set URL
+// set URL
 OPTIONS.prototype.getURL = function( ) {
 	return this.url;
 }
