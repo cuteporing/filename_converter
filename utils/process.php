@@ -16,6 +16,7 @@ require_once( 'utils.php' );
 require_once( 'renameFile.php' );
 
 if( Utils::isValidRequest() ) {
+
 	$renameFile = new RenameFile;
 	$renameFile->setResponseName( $_POST['responseName'] );
 	$renameFile->init( $_POST );

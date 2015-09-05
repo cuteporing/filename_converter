@@ -11,7 +11,7 @@ table {
 }
 
 #tableCondition fieldset {
-	max-height: 173px;
+	max-height: 99px;
 	overflow-y: scroll;
 }
 

@@ -26,8 +26,6 @@ class RenameFile {
 
 	var $isDone          = false;
 
-	private function __construct() {
-	}
 
 	/**
 	 * Defines path for define.json
@@ -43,8 +41,8 @@ class RenameFile {
 	 */
 	public function setResponseName( $responsename ) {
 		if( isset( $responsename ) && !empty( $responsename ) &&
-				!is_null( $responsename ) ) {
-					$this->responseName = $responsename;
+			!is_null( $responsename ) ) {
+				$this->responseName = $responsename;
 		}
 
 		Logger::info( 'RESPONSE NAME ( '.$this->responseName.' )' );
@@ -142,7 +140,6 @@ class RenameFile {
 			// Title.SE01E01.Description
 			// Title 1 - 01
 			case "pattern2":
-			case "pattern4":
 				if( strpos( $filename, "." ) ) {
 					$filename = str_replace( ' ', '.', $filename );
 					$filename = explode( '.', $filename);
@@ -152,7 +149,7 @@ class RenameFile {
 				} else {
 					( strpos( $filename, " - " ) ) ?
 						$filename = explode( ' - ', $filename )
-					: $filename = explode( ' ', $filename );
+					:	$filename = explode( ' ', $filename );
 
 					$this->getEpisode( $filename[1] );
 					$this->getFileDesc( $filename[1] );
@@ -160,6 +157,7 @@ class RenameFile {
 				break;
 			// Title-01
 			case "pattern3":
+				$filename = str_replace( ' - ', '-', $filename );
 				$filename = explode( '-', $filename );
 				$this->getEpisode( $filename[1] );
 				$this->getFileDesc( $filename[1] );
@@ -199,8 +197,13 @@ class RenameFile {
 			} else {
 				$this->episode = $filename;
 			}
-		} else {
-			$this->episode = $filename;
+		} else if( $this->pattern == "pattern3") {
+			if ( strpos( $filename, " " ) ) {
+				$filename = explode( ' ', $filename );
+				$this->episode = $filename[0];
+			} else {
+				$this->episode = $filename;
+			}
 		}
 
 		// If episode is less than 10 then prepend 0.
@@ -225,8 +228,13 @@ class RenameFile {
 					$this->description .= ' '.$filename[$i];
 				}
 			}
-		} else {
-			$this->description = "";
+		} else if( $this->pattern == "pattern3" ) {
+			if ( strpos( $filename, " " ) ) {
+				$filename =  array_splice( explode( ' ', $filename ) , 1);
+				$this->description = implode( ' ', $filename );
+			} else {
+				$this->description = $filename;
+			}
 		}
 
 		if( $this->description != "" ) {
@@ -236,7 +244,6 @@ class RenameFile {
 
 		$this->description = ucwords( $this->description );
 	}
-
 
 	/**
 	 * Generate new filename
@@ -286,8 +293,6 @@ class RenameFile {
 
 		$this->getNewFilename();
 	}
-
-
 
 	/**
 	 * Function for getting files from the directory

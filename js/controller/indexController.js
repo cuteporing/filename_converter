@@ -238,7 +238,7 @@ $( window ).load( function() {
 			
 			return tempData;
 		}
-
+		
 		// --------------------------------------------------------------------
 		// EVENTS
 		// --------------------------------------------------------------------
@@ -248,18 +248,6 @@ $( window ).load( function() {
 		directoryInpt.bind( "change", reset );
 		seasonCmb.bind( "change", reset );
 		patternRad.bind( "change", reset );
-
-//		    $('#filterBasic-input input[data-type="search"]').on('keydown', function(e) {
-//		        var code = (e.keyCode ? e.keyCode : e.which);
-//		         if (code == 13) { //Enter keycode
-//		             // this handles the enter key
-//		         }
-//		    });
-//		    $("#filterBasic-input form").submit(function() {
-//		        // this will handle both the enter key and go button on device
-//		        alert('enter key or device go button pressed');
-//		    });
-
 
 		return;
 	})();
