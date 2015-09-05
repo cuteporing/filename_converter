@@ -1,4 +1,14 @@
 <?php
+/*********************************************************************************
+ ** The contents of this file are subject to file_converter
+ * Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is: file_converter
+ * The Initial Developer of the Original Code is Krishia Valencia.
+ * All Rights Reserved.
+ *
+ ********************************************************************************/
+
 class RenameFile {
 	var $definePath      = null;
 	var $masterData      = null;
@@ -16,6 +26,9 @@ class RenameFile {
 
 	var $isDone          = false;
 
+	private function __construct() {
+	}
+
 	/**
 	 * Defines path for define.json
 	 */
@@ -24,7 +37,9 @@ class RenameFile {
 	}
 
 	/**
-	 * Set responsename
+	 * Set response name
+	 *
+	 * @param string $responsename
 	 */
 	public function setResponseName( $responsename ) {
 		if( isset( $responsename ) && !empty( $responsename ) &&
@@ -32,8 +47,8 @@ class RenameFile {
 					$this->responseName = $responsename;
 		}
 
-		Logger::debug( 'RESPONSE NAME ( '.$this->responseName.' )' );
-		Logger::debug( '------------------------------------------' );
+		Logger::info( 'RESPONSE NAME ( '.$this->responseName.' )' );
+		Logger::info( '------------------------------------------' );
 	}
 
 	/**
@@ -60,7 +75,7 @@ class RenameFile {
 
 	/**
 	 * Set title
-	 * @param <string> $title
+	 * @param string $title
 	 */
 	public function setTitle( $title ) {
 		$this->title = $title;
@@ -68,7 +83,7 @@ class RenameFile {
 
 	/**
 	 * Set season
-	 * @param <string> $season
+	 * @param string $season
 	 */
 	public function setSeason( $season ) {
 		$this->season = $season;
@@ -76,7 +91,7 @@ class RenameFile {
 
 	/**
 	 * Set pattern
-	 * @param <string> $pattern
+	 * @param string $pattern
 	 */
 	public function setPattern( $pattern ) {
 		$this->pattern = $pattern;
@@ -84,7 +99,7 @@ class RenameFile {
 
 	/**
 	 * Set directory
-	 * @param <string> $directory
+	 * @param string $directory
 	 */
 	public function setDirectory( $directory ) {
 		$this->directory = Utils::sanitizeDir( $directory );
@@ -92,7 +107,7 @@ class RenameFile {
 
 	/**
 	 * Get file extension
-	 * @param <string> $path
+	 * @param string $path
 	 */
 	public function getFileExtention( $path ) {
 		return pathinfo($path, PATHINFO_EXTENSION);
@@ -109,20 +124,25 @@ class RenameFile {
 
 	/**
 	 * Remove illegal filename
-	 * @param <string> $filename
-	 * @return <array> $newFilename
+	 *
+	 * @param string $filename
+	 * @return array $newFilename
 	 */
 	public function sanitizeFilename( $filename ) {
 		Logger::debug( "Creating a new filename and removing unnecessary description..." );
 		$newFilename = array();
 
 		switch ( $this->pattern ) {
+			// Episode 1 - Description
 			case "pattern1":
 				$filename = explode( ' - ', $filename );
 				$this->getEpisode( $filename[0] );
 				$this->getFileDesc( $filename[1] );
 				break;
+			// Title.SE01E01.Description
+			// Title 1 - 01
 			case "pattern2":
+			case "pattern4":
 				if( strpos( $filename, "." ) ) {
 					$filename = str_replace( ' ', '.', $filename );
 					$filename = explode( '.', $filename);
@@ -138,6 +158,7 @@ class RenameFile {
 					$this->getFileDesc( $filename[1] );
 				}
 				break;
+			// Title-01
 			case "pattern3":
 				$filename = explode( '-', $filename );
 				$this->getEpisode( $filename[1] );
@@ -162,8 +183,9 @@ class RenameFile {
 
 	/**
 	 * Get episode from file name
-	 * @param <string> $filename
-	 * @return <string> $episode
+	 *
+	 * @param string $filename
+	 * @return string $episode
 	 */
 	public function getEpisode( $filename ) {
 		$this->episode = "";
@@ -181,6 +203,7 @@ class RenameFile {
 			$this->episode = $filename;
 		}
 
+		// If episode is less than 10 then prepend 0.
 		if( (Int) $this->episode < 10 ) {
 			$this->episode = '0'.ltrim( (String) $this->episode, '0' );
 		}
@@ -188,8 +211,9 @@ class RenameFile {
 
 	/**
 	 * Get file description from file name
-	 * @param <array> $filename
-	 * @return <string> $description
+	 *
+	 * @param array $filename
+	 * @return string $description
 	 */
 	public function getFileDesc( $filename ) {
 		$this->description = "";
@@ -216,11 +240,12 @@ class RenameFile {
 
 	/**
 	 * Generate new filename
-	 * @param <string> $filename
-	 * @return <string> $newFilename
+	 *
+	 * @param string $filename
+	 * @return string $newFilename
 	 */
 	public function getNewFilename( $filename ) {
-		Logger::info( "Get new filename" );
+		Logger::info( "Create a new filename..." );
 		for( $i = 0; $i < count( $this->fileList ); $i++ ) {
 
 			$oldFilename = $this->fileList[$i]['filename']['original'];
@@ -235,7 +260,7 @@ class RenameFile {
 
 	/**
 	 * Get all files under the directory
-	 * @param <string> $dir
+	 * @param string $dir
 	 */
 	public function getAllFiles( ) {
 		Logger::info( 'Get all files in the directory ');
@@ -265,7 +290,9 @@ class RenameFile {
 
 
 	/**
-	 * @param <object> $request
+	 * Function for getting files from the directory
+	 *
+	 * @param object $request
 	 */
 	public function getFiles( $request ) {
 		$this->setDirectory( $request['data']['directory'] );
@@ -287,7 +314,8 @@ class RenameFile {
 
 	/**
 	 * Rename files
-	 * @param <object> $request
+	 *
+	 * @param object $request
 	 */
 	public function renameFiles( $request ) {
 		$this->setDirectory( $request['data'][0]['dir'] );
@@ -320,7 +348,8 @@ class RenameFile {
 
 	/**
 	 * Initialize process
-	 * @param <object> $request
+	 *
+	 * @param object $request
 	 */
 	public function init( $request ) {
 		Logger::info( 'Initialize request...' );
@@ -329,7 +358,5 @@ class RenameFile {
 			case "renameFiles": $this->renameFiles( $request ); break;
 		}
 	}
-
-
 }
 ?>

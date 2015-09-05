@@ -1,3 +1,13 @@
+/*********************************************************************************
+ ** The contents of this file are subject to file_converter
+ * Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is: file_converter
+ * The Initial Developer of the Original Code is Krishia Valencia.
+ * All Rights Reserved.
+
+ ********************************************************************************/
+
 //--------------------------------------------------------------------
 // ENABLE/DISABLE CONSOLE LOG
 // -------------------------------------------------------------------
@@ -34,9 +44,10 @@ var autoCompleteList = {
 		this.evInptDblClick( selector );
 		this.evOutsideClick( selector );
 	},
-	
+
 	evSelectList: function( selector ) {
 		console.info( '-- evSelectList' );
+		var self = this;
 		$( document ).on( "click", selector + " li", function() {
 			var inpt = $( this ).parent().attr( 'data-input' );
 			var selectedItem = $( this ).html();
@@ -156,6 +167,7 @@ var common = {
 	
 	/**
 	 * GET DIRECTORY LIST FROM LOCALSTORAGE
+	 * @param id
 	 */
 	getSavedInfo: function( id ) {
 		console.info( '-- getSaveDirectory' );
