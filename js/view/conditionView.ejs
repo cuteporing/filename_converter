@@ -11,25 +11,33 @@
         <label>Series <input type="checkbox" id="isSeries" checked="checked" /></label> 
         <label>Original filename pattern</label>
         <fieldset data-role="controlgroup" data-mini="true">
-          <input type="radio" name="filePattern" id="pattern1" />
-          <label for="pattern1">Episode 1 - Description</label>
-          <input type="radio" name="filePattern" id="pattern2" />
-          <label for="pattern2">Title.SE01E01.Description</label>
-          <input type="radio" name="filePattern" id="pattern3" />
-          <label for="pattern3">Title-01</label>
+          <input type="radio" name="filePattern" id="pattern1" /><label for="pattern1">Episode 1 - Description</label>
+          <input type="radio" name="filePattern" id="pattern2" /><label for="pattern2">Title.SE01E01.Description</label>
+          <input type="radio" name="filePattern" id="pattern3" /><label for="pattern3">Title-01</label>
         </fieldset>
       </td>
       <td>
         <tr>
-          <td><label>Title <input id="title" type="text" value="Spartacus"/></label></td>
+          <td>
+            <form class="ui-filterable">
+              <input id="title-input" name="title" type="text" data-type='text' value="" placeholder="Title"/>
+            </form>
+            <ul data-inset="true" id="titleList" data-role="listview" data-filter="true" data-filter-reveal="true" data-input="#title-input">
+            </ul>
+          </td>
         </tr>
-        <tr>
-          <td><label>Season <select id="season"></select></label></td>
-        </tr>
-        <tr>
-          <td><label>Directory <input id="directory" type="text" value="C:\Users\USER\Videos\Vids\SERIES\SPARTACUS\Spartacus Season 2 Vengeance (2012)"/></label></td>
-        </tr>
+        <tr><td><label>Season <select name="season"></select></label></td></tr>
+        <tr><td></td></tr>
       </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+       <form class="ui-filterable ">
+         <input id="directory-input" name="directory" type="text" data-type='search' value="" placeholder="Directory..." />
+       </form>
+       <ul data-inset="true" id="dirList" data-role="listview" data-filter="true" data-filter-reveal="true" data-input="#directory-input">
+       </ul>
+     </td>
     </tr>
   </tbody>
 </table>
